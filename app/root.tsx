@@ -1,9 +1,12 @@
 import {
 	Links,
 	Meta,
+	NavLink,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	isRouteErrorResponse,
+	useRouteError,
 } from "@remix-run/react";
 
 import "./styles/main.css";
@@ -13,8 +16,8 @@ import type { LinksFunction } from "@remix-run/node";
 export const links: LinksFunction = () => {
 	return [
 		{
-			rel: "preconnect",
-			href: "https://fonts.gstatic.com",
+			rel: "preload",
+			href: "/fonts/lexend.woff2",
 			as: "font",
 			crossOrigin: "anonymous",
 		},
@@ -41,8 +44,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
 	return (
-		<main>
-			<Outlet />
-		</main>
+		<>
+			<header>
+				<nav>
+					<ol className="flex flex-wrap p-4 gap-4 text-stone-900 dark:text-neutral-50">
+						<li>
+							<NavLink to="/">Home</NavLink>
+						</li>
+						<li>
+							<NavLink to="/work">Work</NavLink>
+						</li>
+						<li>
+							<NavLink to="/blog">Blog</NavLink>
+						</li>
+						<li>
+							<NavLink to="/photography">Photography</NavLink>
+						</li>
+					</ol>
+				</nav>
+			</header>
+			<main>
+				<Outlet />
+			</main>
+		</>
 	);
+}
+
+export function ErrorBoundary() {
+	return <h1 className="dark:text-neutral-50 text-4xl">Error</h1>;
 }
