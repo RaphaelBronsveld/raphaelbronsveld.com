@@ -14,15 +14,9 @@ export const links: LinksFunction = () => {
 	return [
 		{
 			rel: "preconnect",
-			href: "https://fonts.googleapis.com",
-		},
-		{
-			rel: "preconnect",
 			href: "https://fonts.gstatic.com",
-		},
-		{
-			rel: "stylesheet",
-			href: "https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap",
+			as: "font",
+			crossOrigin: "anonymous",
 		},
 	];
 };
