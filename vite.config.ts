@@ -8,8 +8,15 @@ installGlobals();
 
 export default defineConfig({
   plugins: [remix({
-   future: {
-    unstable_singleFetch: true
-   }
+    routes(defineRoutes) {
+      return defineRoutes((route) => {
+        route("blog", "modules/blog/routes/index.tsx", { index: true });
+        route("photography", "modules/photography/routes/index.tsx", { index: true });
+        route("work", "modules/work/routes/index.tsx", { index: true });
+      });
+    },
+    future: {
+      unstable_singleFetch: true
+    }
   }), tsconfigPaths(), tailwindcss()],
 });

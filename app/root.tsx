@@ -1,12 +1,11 @@
 import {
 	Links,
 	Meta,
+	type MetaFunction,
 	NavLink,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-	isRouteErrorResponse,
-	useRouteError,
 } from "@remix-run/react";
 
 import "./styles/main.css";
@@ -20,6 +19,17 @@ export const links: LinksFunction = () => {
 			href: "/fonts/lexend.woff2",
 			as: "font",
 			crossOrigin: "anonymous",
+		},
+	];
+};
+
+export const meta: MetaFunction = () => {
+	return [
+		{ title: "Home | Raphaël Bronsveld" },
+		{
+			name: "description",
+			content:
+				"The online home location of Raphaël Bronsveld. You'll be able to find blog posts here as well.",
 		},
 	];
 };
