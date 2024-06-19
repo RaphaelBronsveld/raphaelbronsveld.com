@@ -24,7 +24,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.7.3",
     "@remix-run/dev": "^2.9.2",
-    "@types/react": "^18.2.20",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "tailwindcss": "^4.0.0-alpha.15",
     "typescript": "^5.4.5",
