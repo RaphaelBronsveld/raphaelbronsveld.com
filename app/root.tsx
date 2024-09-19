@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Meta />
 				<Links />
 			</head>
-			<body className="bg-neutral-50 dark:bg-stone-900">
+			<body className="bg-neutral-50 dark:bg-stone-900 dark:text-neutral-50">
 				{children}
 				<ScrollRestoration />
 				<Scripts />
@@ -56,8 +56,8 @@ export default function App() {
 	return (
 		<>
 			<header>
-				<nav>
-					<ol className="flex flex-wrap p-4 gap-4 text-stone-900 dark:text-neutral-50">
+				<nav className="max-w-3xl mx-auto">
+					<ol className="flex flex-wrap p-4 gap-4">
 						<li>
 							<NavLink to="/">Home</NavLink>
 						</li>
@@ -73,7 +73,7 @@ export default function App() {
 					</ol>
 				</nav>
 			</header>
-			<main>
+			<main className="max-w-3xl mx-auto">
 				<Outlet />
 			</main>
 		</>
@@ -81,5 +81,5 @@ export default function App() {
 }
 
 export function ErrorBoundary() {
-	return <h1 className="dark:text-neutral-50 text-4xl">Error</h1>;
+	return <h1 className="text-4xl">Error</h1>;
 }

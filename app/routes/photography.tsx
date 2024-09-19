@@ -2,19 +2,18 @@ import type { MetaFunction } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "Work | Raphaël Bronsveld" },
+		{ title: "Photography | Raphaël Bronsveld" },
 		{
 			name: "description",
-			content:
-				"The work I (Raphaël Bronsveld) have been doing for the last years!",
+			content: "Photo's made by Raphaël Bronsveld.",
 		},
 	];
 };
 
-export default function Work() {
+export default function Photography() {
 	return (
 		<div className="w-screen h-screen flex lg:justify-center p-4">
-			<h1 className="dark:text-neutral-50 text-2xl">Work</h1>
+			<h1 className="text-2xl">Photography</h1>
 		</div>
 	);
 }
