@@ -12,7 +12,7 @@ export const meta: MetaFunction = () => {
 
 export default function Photography() {
 	return (
-		<div className="w-screen h-screen flex lg:justify-center p-4">
+		<div className="w-screen h-screen flex lg:justify-center p-8">
 			<h1 className="text-2xl">Photography</h1>
 		</div>
 	);

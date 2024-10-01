@@ -19,12 +19,12 @@ export const meta: MetaFunction = () => {
 export default function Component() {
 	const posts = useLoaderData<typeof loader>();
 	return (
-		<div className="p-4">
-			<h1 className="text-3xl">Posts</h1>
-			<ul className="space-y-4">
+		<div className="p-8">
+			<h1 className="text-3xl mb-4">Posts</h1>
+			<ul className="space-y-2">
 				{posts.map((post) => (
 					<li key={post.slug}>
-						<Link to={post.slug}>{post.frontmatter.title}</Link>
+						<Link to={post.slug} className="underline">{post.frontmatter.title}</Link>
 					</li>
 				))}
 			</ul>

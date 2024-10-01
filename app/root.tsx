@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Meta />
 				<Links />
 			</head>
-			<body className="bg-neutral-50 dark:bg-stone-900 dark:text-neutral-50">
+			<body className="bg-neutral-50 text-stone-800 dark:bg-stone-900 dark:text-neutral-50">
 				{children}
 				<ScrollRestoration />
 				<Scripts />
@@ -57,7 +57,7 @@ export default function App() {
 		<>
 			<header>
 				<nav className="max-w-3xl mx-auto">
-					<ol className="flex flex-wrap p-4 gap-4">
+					<ol className="flex flex-wrap p-8 pb-4 gap-4">
 						<li>
 							<NavLink to="/">Home</NavLink>
 						</li>
@@ -65,7 +65,7 @@ export default function App() {
 							<NavLink to="/work">Work</NavLink>
 						</li>
 						<li>
-							<NavLink to="/blog">Blog</NavLink>
+							<NavLink to="/blog" prefetch="viewport">Blog</NavLink>
 						</li>
 						<li>
 							<NavLink to="/photography">Photography</NavLink>

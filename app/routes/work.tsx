@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 
 export default function Work() {
 	return (
-		<div className="flex p-4">
+		<div className="flex p-8">
 			<h1 className="text-2xl">Work</h1>
 		</div>
 	);
