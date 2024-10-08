@@ -1,14 +1,11 @@
 import mdx from "@mdx-js/rollup";
-import { vitePlugin as remix } from "@remix-run/dev";
+import { reactRouter } from "@react-router/dev/vite";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import rehypePrettyCode from "rehype-pretty-code";
-import { installGlobals } from "@remix-run/node";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-
-installGlobals();
 
 export default defineConfig({
 	plugins: [
@@ -16,10 +13,8 @@ export default defineConfig({
 			remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
 			rehypePlugins: [rehypePrettyCode],
 		}),
-		remix({
-			future: {
-				unstable_singleFetch: true,
-			},
+		reactRouter({
+			ssr: true, // consider prerendering
 		}),
 		tsconfigPaths(),
 		tailwindcss(),

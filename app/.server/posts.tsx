@@ -1,4 +1,4 @@
-import { ServerBuild } from "@remix-run/node";
+import { ServerBuild } from "react-router";
 
 export type Frontmatter = {
 	title: string;
@@ -17,9 +17,9 @@ export const getPosts = async (): Promise<PostMeta[]> => {
 		"../routes/*.mdx",
 		{ eager: true },
 	);
-	const build = await import("virtual:remix/server-build");
+	const build = await import("virtual:react-router/server-build");
 	const posts = Object.entries(modules).map(([file, post]) => {
-		const id = file.replace("../", "").replace(/\.mdx$/, "");
+		const id = `./${file.replace("../", "").replace(/\.mdx$/, "")}`;
 		const slug = build.routes[id].path;
 		if (slug === undefined) throw new Error(`No route for ${id}`);
 

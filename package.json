@@ -4,35 +4,35 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "start": "react-router-serve ./build/server/index.js",
     "check": "biome check --apply ./app",
     "ci": "biome ci ./app",
     "format": "biome format ./app",
-    "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.0.1",
-    "@remix-run/node": "^2.12.0",
-    "@remix-run/react": "^2.12.0",
-    "@remix-run/serve": "^2.12.0",
+    "@react-router/node": "^7.0.0-pre.0",
+    "@react-router/serve": "^7.0.0-pre.0",
     "@tailwindcss/vite": "^4.0.0-alpha.15",
-    "isbot": "^5.1.9",
-    "react": "^18.2.0",
-    "react-dom": "^18.3.1"
+    "isbot": "^5.1.17",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^7.0.0-pre.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.3",
-    "@remix-run/dev": "^2.12.0",
-    "@types/react": "^18.2.20",
+    "@react-router/dev": "^7.0.0-pre.0",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "rehype-pretty-code": "^0.14.0",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.0.0",
     "tailwindcss": "^4.0.0-alpha.15",
-    "typescript": "^5.4.5",
-    "vite": "^5.3.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "engines": {

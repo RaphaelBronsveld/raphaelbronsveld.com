@@ -6,11 +6,11 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-} from "@remix-run/react";
+} from "react-router";
 
 import "./styles/main.css";
 
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from "react-router";
 
 export const links: LinksFunction = () => {
 	return [
@@ -59,16 +59,24 @@ export default function App() {
 				<nav className="max-w-3xl mx-auto">
 					<ol className="flex flex-wrap p-8 pb-4 gap-4">
 						<li>
-							<NavLink to="/">Home</NavLink>
+							<NavLink to="/" viewTransition>
+								Home
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to="/work">Work</NavLink>
+							<NavLink to="/work" viewTransition>
+								Work
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to="/blog" prefetch="viewport">Blog</NavLink>
+							<NavLink to="/blog" prefetch="viewport" viewTransition>
+								Blog
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to="/photography">Photography</NavLink>
+							<NavLink to="/photography" viewTransition>
+								Photography
+							</NavLink>
 						</li>
 					</ol>
 				</nav>

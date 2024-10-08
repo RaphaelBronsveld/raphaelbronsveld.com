@@ -1,9 +1,11 @@
-import { json } from "@remix-run/node";
-import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
+import type * as Route from "./+types.blog.index";
+import { Link, type MetaFunction } from "react-router";
 
 import { getPosts } from "~/.server/posts";
 
-export const loader = async () => json(await getPosts());
+export const loader = async () => {
+	return { posts: await getPosts() };
+};
 
 export const meta: MetaFunction = () => {
 	return [
@@ -16,18 +18,20 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export default function Component() {
-	const posts = useLoaderData<typeof loader>();
+export default function Component({ loaderData }: Route.ComponentProps) {
+	const { posts } = loaderData;
 	return (
-		<div className="p-8">
+		<>
 			<h1 className="text-3xl mb-4">Posts</h1>
 			<ul className="space-y-2">
 				{posts.map((post) => (
 					<li key={post.slug}>
-						<Link to={post.slug} className="underline">{post.frontmatter.title}</Link>
+						<Link to={post.slug} className="underline" viewTransition>
+							{post.frontmatter.title}
+						</Link>
 					</li>
 				))}
 			</ul>
-		</div>
+		</>
 	);
 }

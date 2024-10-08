@@ -1,5 +1,5 @@
-declare module "virtual:remix/server-build" {
-	import type { ServerBuild } from "@remix-run/node";
+declare module "virtual:react-router/server-build" {
+	import type { ServerBuild } from "react-router";
 	export const routes: ServerBuild["routes"];
 }
 
