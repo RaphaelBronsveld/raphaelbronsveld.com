@@ -1,5 +1,5 @@
-import type * as Route from "./+types.blog.index";
 import { Link, type MetaFunction } from "react-router";
+import type * as Route from "./+types.blog.index";
 
 import { getPosts } from "~/.server/posts";
 
