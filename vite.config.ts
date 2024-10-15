@@ -15,6 +15,7 @@ export default defineConfig({
 		}),
 		reactRouter({
 			ssr: true, // consider prerendering
+			prerender: true,
 		}),
 		tsconfigPaths(),
 		tailwindcss(),
