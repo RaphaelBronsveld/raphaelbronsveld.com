@@ -69,7 +69,7 @@ export default function App() {
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="/blog" prefetch="viewport" viewTransition>
+							<NavLink to="/blog" viewTransition>
 								Blog
 							</NavLink>
 						</li>
