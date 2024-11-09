@@ -20,10 +20,10 @@ export default function Footer() {
 	];
 	return (
 		<footer className="p-8">
-			<ul className="flex justify-center gap-4">
+			<ul className="flex justify-center gap-2">
 				{socialMediaLinks.map((link, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: It's just a footer.
-					<Link to={link.href} key={index} rel="me">
+					<Link to={link.href} key={index} rel="me" className="p-4">
 						<span className="sr-only">{link.label}</span>
 						<link.component />
 					</Link>
