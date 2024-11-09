@@ -9,7 +9,7 @@ export const loader = async () => {
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "Blog | Raphaël Bronsveld" },
+		{ title: "Blog - Raphaël Bronsveld" },
 		{
 			name: "description",
 			content:
@@ -22,7 +22,7 @@ export default function Component({ loaderData }: Route.ComponentProps) {
 	const { posts } = loaderData;
 	return (
 		<>
-			<h1 className="text-3xl mb-4">Posts</h1>
+			<h1 className="text-3xl mb-6">Posts</h1>
 			<ul className="space-y-2">
 				{posts.map((post) => (
 					<li key={post.slug}>

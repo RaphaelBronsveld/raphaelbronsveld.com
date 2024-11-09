@@ -2,7 +2,6 @@ import {
 	Links,
 	Meta,
 	type MetaFunction,
-	NavLink,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
@@ -11,6 +10,7 @@ import {
 import "./styles/main.css";
 
 import type { LinksFunction } from "react-router";
+import Footer from "~/components/Footer";
 
 export const links: LinksFunction = () => {
 	return [
@@ -25,7 +25,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "Home | Raphaël Bronsveld" },
+		{ title: "Raphaël Bronsveld" },
 		{
 			name: "description",
 			content:
@@ -60,7 +60,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
 	return (
 		<>
-			<header>
+			{/* <header>
 				<nav className="max-w-3xl mx-auto">
 					<ol className="flex flex-wrap p-8 pb-4 gap-4">
 						<li>
@@ -85,10 +85,11 @@ export default function App() {
 						</li>
 					</ol>
 				</nav>
-			</header>
+			</header> */}
 			<main className="max-w-3xl mx-auto">
 				<Outlet />
 			</main>
+			<Footer />
 		</>
 	);
 }

@@ -2,7 +2,7 @@ import type { MetaFunction } from "react-router";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "Work | Raphaël Bronsveld" },
+		{ title: "Work - Raphaël Bronsveld" },
 		{
 			name: "description",
 			content:

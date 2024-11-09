@@ -3,7 +3,8 @@ import { Link } from "react-router";
 export default function Index() {
 	return (
 		<div className="flex flex-col p-8">
-			<h1 className="text-2xl mb-6">Raphaël Bronsveld</h1>
+			<h1 className="text-3xl mb-6">Raphaël Bronsveld</h1>
+			<h2 className="text-2xl mb-4">Welcome.</h2>
 			<div className="space-y-3">
 				<p>
 					I'm an all-around developer, a performance nerd, and I’m passionate
@@ -19,8 +20,7 @@ export default function Index() {
 						Touchwonders
 					</Link>
 					, where I focus on working on integrating 3rd party services,
-					enhancing user experience, and defining the technical roadmap for
-					future success.
+					enhancing user experience, and figuring out where to take things next.
 				</p>
 			</div>
 		</div>
