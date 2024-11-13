@@ -5,7 +5,7 @@ export default function Index() {
 		<div className="flex flex-col p-8">
 			<h1 className="text-3xl mb-6">Raphaël Bronsveld</h1>
 			<h2 className="text-2xl mb-4">Welcome.</h2>
-			<div className="space-y-3">
+			<div className="space-y-3 text-balance">
 				<p>
 					I'm an all-around developer, a performance nerd, and I’m passionate
 					about making the web faster, and better for everyone.

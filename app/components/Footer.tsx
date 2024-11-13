@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Crescent, StarCanvas } from "~/components/SpaceComponents";
 
 export default function Footer() {
 	const socialMediaLinks = [
@@ -19,17 +20,26 @@ export default function Footer() {
 		},
 	];
 	return (
-		<footer className="p-8">
-			<ul className="flex justify-center gap-2">
-				{socialMediaLinks.map((link, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: It's just a footer.
-					<Link to={link.href} key={index} rel="me" className="p-4">
-						<span className="sr-only">{link.label}</span>
-						<link.component />
-					</Link>
-				))}
-			</ul>
-		</footer>
+		<>
+			<footer className="p-8 relative">
+				<StarCanvas />
+				<ul className="flex justify-center gap-2">
+					{socialMediaLinks.map((link, index) => (
+						<Link
+							to={link.href}
+							// biome-ignore lint/suspicious/noArrayIndexKey: It's just a footer.
+							key={index}
+							rel="me"
+							className="p-4 dark:bg-stone-900"
+						>
+							<span className="sr-only">{link.label}</span>
+							<link.component />
+						</Link>
+					))}
+				</ul>
+			</footer>
+			<Crescent />
+		</>
 	);
 }
 

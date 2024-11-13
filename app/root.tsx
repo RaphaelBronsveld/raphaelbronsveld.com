@@ -11,6 +11,7 @@ import "./styles/main.css";
 
 import type { LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
+import { Crescent } from "~/components/SpaceComponents";
 
 export const links: LinksFunction = () => {
 	return [
