@@ -59,6 +59,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		drawStars(ctx, canvas);
 
 		const redraw = () => {
+			if (canvas.width === window.innerWidth) return;
 			canvas.width = window.innerWidth;
 			initStars(canvas);
 			drawStars(ctx, canvas);
