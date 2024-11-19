@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Crescent, StarCanvas } from "~/components/SpaceComponents";
+import { Crescent } from "~/components/SpaceComponents";
 
 export default function Footer() {
 	const socialMediaLinks = [
@@ -21,8 +21,7 @@ export default function Footer() {
 	];
 	return (
 		<>
-			<footer className="p-8 relative">
-				<StarCanvas />
+			<footer className="p-8">
 				<ul className="flex justify-center gap-2">
 					{socialMediaLinks.map((link, index) => (
 						<Link

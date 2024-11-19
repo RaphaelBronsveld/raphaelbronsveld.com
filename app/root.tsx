@@ -11,7 +11,7 @@ import "./styles/main.css";
 
 import type { LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
-import { Crescent } from "~/components/SpaceComponents";
+import { Crescent, StarCanvas } from "~/components/SpaceComponents";
 
 export const links: LinksFunction = () => {
 	return [
@@ -60,7 +60,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
 	return (
-		<>
+		<div className="relative">
 			{/* <header>
 				<nav className="max-w-3xl mx-auto">
 					<ol className="flex flex-wrap p-8 pb-4 gap-4">
@@ -87,11 +87,12 @@ export default function App() {
 					</ol>
 				</nav>
 			</header> */}
+			<StarCanvas />
 			<main className="max-w-3xl mx-auto">
 				<Outlet />
 			</main>
 			<Footer />
-		</>
+		</div>
 	);
 }
 

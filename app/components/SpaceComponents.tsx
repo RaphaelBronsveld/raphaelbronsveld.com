@@ -54,6 +54,10 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		if (!ctx) return;
 
 		canvas.width = window.innerWidth;
+		canvas.height = canvas.parentElement?.offsetHeight
+			? canvas.parentElement?.offsetHeight
+			: canvas.height;
+		canvas.classList.add("opacity-100");
 
 		initStars(canvas);
 		drawStars(ctx, canvas);
@@ -61,6 +65,9 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		const redraw = () => {
 			if (canvas.width === window.innerWidth) return;
 			canvas.width = window.innerWidth;
+			canvas.height = canvas.parentElement?.offsetHeight
+				? canvas.parentElement?.offsetHeight
+				: canvas.height;
 			initStars(canvas);
 			drawStars(ctx, canvas);
 		};
@@ -74,7 +81,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 	return (
 		<canvas
 			ref={canvasRef}
-			className="hidden top-0 dark:block absolute left-0 -z-10"
+			className="hidden dark:block absolute -z-10 opacity-0 transition-opacity duration-500"
 		/>
 	);
 }
