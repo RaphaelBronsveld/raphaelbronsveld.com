@@ -1,34 +1,30 @@
-import { ServerBuild } from "react-router";
-
-export type Frontmatter = {
+export type BlogPost = {
+	slug: string;
 	title: string;
 	description: string;
-	published: string; // YYYY-MM-DD
-	featured: boolean;
+	date: string;
+	category: string;
+	image: string;
 };
 
-export type PostMeta = {
-	slug: string;
-	frontmatter: Frontmatter;
-};
-
-export const getPosts = async (): Promise<PostMeta[]> => {
-	const modules = import.meta.glob<{ frontmatter: Frontmatter }>(
+export const getPosts = async (): Promise<BlogPost[]> => {
+	const modules = import.meta.glob<{ frontmatter: BlogPost }>(
 		"../routes/*.mdx",
 		{ eager: true },
 	);
 	const build = await import("virtual:react-router/server-build");
 	const posts = Object.entries(modules).map(([file, post]) => {
-		const id = `./${file.replace("../", "").replace(/\.mdx$/, "")}`;
-		const slug = build.routes[id].path;
+		const id = `${file.replace("../", "").replace(/\.mdx$/, "")}`;
+		const slug =
+			build.routes !== undefined && id in build.routes
+				? build.routes[id].path
+				: undefined;
 		if (slug === undefined) throw new Error(`No route for ${id}`);
 
-		return {
-			slug,
-			frontmatter: post.frontmatter,
-		};
+		return { ...post.frontmatter, slug };
 	});
-	return sortBy(posts, (post) => post.frontmatter.published, "desc");
+
+	return sortBy(posts, (post) => post.date, "desc");
 };
 
 function sortBy<T>(

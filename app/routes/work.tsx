@@ -12,9 +12,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Work() {
-	return (
-		<div className="flex p-8">
-			<h1 className="text-2xl">Work</h1>
-		</div>
-	);
+	return <h1 className="text-2xl">Work</h1>;
 }

@@ -1,9 +1,8 @@
-import { Link } from "react-router";
+import { Link, href } from "react-router";
 
 export default function Index() {
 	return (
-		<div className="flex flex-col p-8">
-			<h1 className="text-3xl mb-6">Raphaël Bronsveld</h1>
+		<div className="flex flex-col">
 			<h2 className="text-2xl mb-4">Welcome.</h2>
 			<div className="space-y-3 text-balance">
 				<p>
@@ -22,6 +21,9 @@ export default function Index() {
 					, where I focus on working on integrating 3rd party services,
 					enhancing user experience, and figuring out where to take things next.
 				</p>
+				<Link to={href("/blog")} className="underline" viewTransition>
+					Check out my blog
+				</Link>
 			</div>
 		</div>
 	);

@@ -11,9 +11,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Photography() {
-	return (
-		<div className="p-8">
-			<h1 className="text-2xl">Photography</h1>
-		</div>
-	);
+	return <h1 className="text-2xl">Photography</h1>;
 }

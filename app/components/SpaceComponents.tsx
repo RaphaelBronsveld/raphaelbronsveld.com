@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export function Crescent() {
 	return (
@@ -20,6 +20,11 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		color: string;
 	}[] = [];
 
+	const starVelocity = {
+		x: 0.08,
+		y: 0.1,
+	};
+
 	const initStars = (canvas: HTMLCanvasElement) => {
 		stars.length = 0;
 		for (let i = 0; i < starsCount; i++) {
@@ -33,20 +38,31 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		}
 	};
 
-	const drawStars = (
-		ctx: CanvasRenderingContext2D,
-		canvas: HTMLCanvasElement,
-	) => {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	const drawStars = useCallback(
+		(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		for (const star of stars) {
-			ctx.beginPath();
-			ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-			ctx.fillStyle = `${star.color} ${star.opacity})`;
-			ctx.fill();
-		}
-	};
+			for (const star of stars) {
+				ctx.beginPath();
+				ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+				ctx.fillStyle = `${star.color} ${star.opacity})`;
+				ctx.fill();
 
+				// Update star position
+				star.x += starVelocity.x;
+				star.y += starVelocity.y;
+
+				// Wrap around the canvas
+				if (star.x < 0) star.x = canvas.width;
+				if (star.x > canvas.width) star.x = 0;
+				if (star.y < 0) star.y = canvas.height;
+				if (star.y > canvas.height) star.y = 0;
+			}
+		},
+		[],
+	);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
@@ -60,7 +76,13 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		canvas.classList.add("opacity-100");
 
 		initStars(canvas);
-		drawStars(ctx, canvas);
+
+		const animate = () => {
+			drawStars(ctx, canvas);
+			requestAnimationFrame(animate);
+		};
+
+		animate();
 
 		const redraw = () => {
 			if (canvas.width === window.innerWidth) return;
@@ -76,7 +98,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		return () => {
 			window.removeEventListener("resize", redraw);
 		};
-	}, [drawStars, initStars]);
+	}, []);
 
 	return (
 		<canvas

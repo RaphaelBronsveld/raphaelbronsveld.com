@@ -6,6 +6,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import babel from "vite-plugin-babel";
 
 export default defineConfig({
 	plugins: [
@@ -13,11 +14,15 @@ export default defineConfig({
 			remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
 			rehypePlugins: [rehypePrettyCode],
 		}),
-		reactRouter({
-			ssr: true, // consider prerendering
-			prerender: true,
-		}),
+		reactRouter(),
 		tsconfigPaths(),
 		tailwindcss(),
+		babel({
+			filter: /\.[jt]sx?$/,
+			babelConfig: {
+				presets: ["@babel/preset-typescript"],
+				plugins: [["babel-plugin-react-compiler", {}]],
+			},
+		}),
 	],
 });

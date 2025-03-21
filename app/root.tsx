@@ -1,17 +1,22 @@
 import {
+	Link,
 	Links,
 	Meta,
 	type MetaFunction,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	isRouteErrorResponse,
+	useRouteLoaderData,
 } from "react-router";
 
 import "./styles/main.css";
 
 import type { LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
-import { Crescent, StarCanvas } from "~/components/SpaceComponents";
+import { StarCanvas } from "~/components/SpaceComponents";
+import { LoaderArgs } from "../.react-router/types/app/+types/root";
+import type { Route } from ".react-router/types/app/+types/root";
 
 export const links: LinksFunction = () => {
 	return [
@@ -20,6 +25,11 @@ export const links: LinksFunction = () => {
 			href: "/fonts/lexend.woff2",
 			as: "font",
 			crossOrigin: "anonymous",
+		},
+		{
+			rel: "icon",
+			href: "/favicon.png",
+			// https://www.vecteezy.com/free-vector/typography
 		},
 	];
 };
@@ -35,7 +45,36 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const loader = async ({ request }: Route.LoaderArgs) => {
+	const url = new URL(request.url);
+	return { homepage: url.pathname === "/" };
+};
+
+export default function App({ loaderData }: Route.ComponentProps) {
+	const { homepage } = loaderData;
+	return (
+		<Document>
+			<StarCanvas />
+			<header className="max-w-3xl mx-auto p-8">
+				<nav>
+					<Link to="/" viewTransition>
+						{homepage ? (
+							<h1 className="text-3xl">Raphaël Bronsveld</h1>
+						) : (
+							<span className="text-3xl">Raphaël Bronsveld</span>
+						)}
+					</Link>
+				</nav>
+			</header>
+			<main className="max-w-3xl mx-auto px-8">
+				<Outlet />
+			</main>
+			<Footer />
+		</Document>
+	);
+}
+
+function Document({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
 			<head>
@@ -58,44 +97,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export default function App() {
-	return (
-		<div className="relative">
-			{/* <header>
-				<nav className="max-w-3xl mx-auto">
-					<ol className="flex flex-wrap p-8 pb-4 gap-4">
-						<li>
-							<NavLink to="/" viewTransition>
-								Home
-							</NavLink>
-						</li>
-						<li>
-							<NavLink to="/work" viewTransition>
-								Work
-							</NavLink>
-						</li>
-						<li>
-							<NavLink to="/blog" viewTransition>
-								Blog
-							</NavLink>
-						</li>
-						<li>
-							<NavLink to="/photography" viewTransition>
-								Photography
-							</NavLink>
-						</li>
-					</ol>
-				</nav>
-			</header> */}
-			<StarCanvas />
-			<main className="max-w-3xl mx-auto">
-				<Outlet />
-			</main>
-			<Footer />
-		</div>
-	);
-}
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	let message = "Oops!";
+	let details = "An unexpected error occurred.";
+	let stack: string | undefined;
 
-export function ErrorBoundary() {
-	return <h1 className="text-4xl">Error</h1>;
+	if (isRouteErrorResponse(error)) {
+		message = error.status === 404 ? "404" : "Error";
+		details =
+			error.status === 404
+				? "The requested page could not be found."
+				: error.statusText || details;
+	} else if (import.meta.env.DEV && error && error instanceof Error) {
+		details = error.message;
+		stack = error.stack;
+	}
+
+	return (
+		<Document>
+			<main className="p-4 max-w-3xl mx-auto">
+				<h1 className="text-3xl mb-2">{message}</h1>
+				<p>{details}</p>
+				{stack && (
+					<pre className="w-full overflow-x-auto">
+						<code>{stack}</code>
+					</pre>
+				)}
+			</main>
+		</Document>
+	);
 }
