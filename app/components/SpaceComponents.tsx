@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function Crescent() {
 	return (
@@ -25,6 +25,12 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		y: 0.1,
 	};
 
+	const [darkmode, setDarkmode] = useState(false);
+
+	useEffect(() => {
+		setDarkmode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+	}, []);
+
 	const initStars = (canvas: HTMLCanvasElement) => {
 		stars.length = 0;
 		for (let i = 0; i < starsCount; i++) {
@@ -33,7 +39,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 				y: Math.random() * canvas.height,
 				radius: Math.random(),
 				opacity: Math.random() * 0.5 + 0.5,
-				color: "rgba(255, 255, 255, 1)",
+				color: darkmode ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0)",
 			});
 		}
 	};
@@ -103,7 +109,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 	return (
 		<canvas
 			ref={canvasRef}
-			className="hidden dark:block absolute -z-10 opacity-0 transition-opacity duration-500"
+			className="absolute -z-10 opacity-0 transition-opacity duration-500"
 		/>
 	);
 }
