@@ -31,6 +31,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		setDarkmode(window.matchMedia("(prefers-color-scheme: dark)").matches);
 	}, []);
 
+	console.log(darkmode);
 	const initStars = (canvas: HTMLCanvasElement) => {
 		stars.length = 0;
 		for (let i = 0; i < starsCount; i++) {
@@ -104,7 +105,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		return () => {
 			window.removeEventListener("resize", redraw);
 		};
-	}, []);
+	}, [darkmode]);
 
 	return (
 		<canvas
