@@ -21,7 +21,11 @@ export default function Index() {
 					, where I focus on working on integrating 3rd party services,
 					enhancing user experience, and figuring out where to take things next.
 				</p>
-				<Link to={href("/blog")} className="underline" viewTransition>
+				<Link
+					to={href("/blog")}
+					className="underline underline-offset-2"
+					viewTransition
+				>
 					Check out my blog
 				</Link>
 			</div>
