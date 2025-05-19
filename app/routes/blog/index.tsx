@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { type BlogPost, getPosts } from "~/.server/posts";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardContent } from "~/components/ui/card";
-import type { Route } from "./+types/blog.index";
+import type { Route } from "../+types/blog.index";
 
 export const loader = async () => {
 	return { posts: await getPosts() };
@@ -45,7 +45,11 @@ export function BlogCard({ post }: { post: BlogPost }) {
 			<Link to={`/blog/${post.slug}`} viewTransition>
 				<article className="md:flex">
 					<div className="bg-gray-200 h-48 md:h-auto md:w-1/3 md:flex-none">
-						<span className="bg-gray-600 flex" />
+						<img
+							className="w-full h-full object-cover"
+							src={post.image.src}
+							alt={post.image.alt}
+						/>
 					</div>
 					<CardContent className="p-4 md:p-6 md:w-2/3">
 						<div className="flex items-center gap-2 mb-2">

@@ -179,4 +179,23 @@ pre {
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	h1 {
+		@apply text-2xl;
+	}
+
+	h2 {
+		@apply text-xl;
+	}
+
+	blockquote {
+		@apply p-4 italic border-l-4 border-gray-600 flex;
+	}
+
+	blockquote:before {
+		content: "“";
+	}
+	blockquote:after {
+		content: "”";
+	}
 }

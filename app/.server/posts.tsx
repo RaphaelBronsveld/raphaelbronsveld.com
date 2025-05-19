@@ -4,12 +4,15 @@ export type BlogPost = {
 	description: string;
 	date: string;
 	category: string;
-	image: string;
+	image: {
+		src: string;
+		alt: string;
+	};
 };
 
 export const getPosts = async (): Promise<BlogPost[]> => {
 	const modules = import.meta.glob<{ frontmatter: BlogPost }>(
-		"../routes/*.mdx",
+		"../routes/blog/*.mdx",
 		{ eager: true },
 	);
 	const build = await import("virtual:react-router/server-build");
