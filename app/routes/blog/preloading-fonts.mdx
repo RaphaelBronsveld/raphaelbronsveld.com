@@ -18,7 +18,7 @@ meta:
 
 You finally decided to tackle your projects font loading strategy and you stumbled upon the fact that your fonts are being loaded twice. How's that possible?
 
-If you search the internet for this specific problem, most advice will tell you to do this..
+If you search the internet for this specific problem, most advice will instruct you to do this..
 
 > Pls add crossorigin to your link tag
 
@@ -26,23 +26,19 @@ If you search the internet for this specific problem, most advice will tell you 
 <link rel="preload" href="yourfont.woff2" as="font" crossorigin/>
 ```
 
-Adding crossorigin tells the browser to use CORS mode when fetching the font — which is required if the font need to be reused across contexts (like preload). Without it, the browser treats the preload request as a separate fetch.
+Adding the crossorigin attribute tells the browser to use CORS mode when fetching the font — which is required if the font needs to be reused across contexts (like preload). Without it, the browser treats the preload request as a separate fetch.
 
 </div>
 <div className="py-3 space-y-3 text-balance">
 ## But I did that and it's still loaded twice 😔?
-Make sure your font file actually allows it to be used as a "cached" asset by checking the following:
+Make sure your font file actually allows it to be used as a cached asset by checking the following:
 
-**Response headers first!**
+**Check response headers first!**
 
 Fonts need to be cacheable and "CORS-friendly" to allow reuse. Your `Cache-Control` header should be set-up correctly. Something like `public, max-age=31536000, immutable` is something you could use.
 
 Now your font should only load once. Please refresh your page 20+ times just to be sure. 🙃
-
 </div>
-
-
-
 
 <a href="/blog" className="block mt-2 underline underline-offset-2">Go back to blog overview</a>
 
