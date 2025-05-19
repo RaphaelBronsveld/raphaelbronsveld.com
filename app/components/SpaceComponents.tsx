@@ -39,7 +39,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 				y: Math.random() * canvas.height,
 				radius: Math.random(),
 				opacity: Math.random() * 0.5 + 0.5,
-				color: darkmode ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0)",
+				color: darkmode ? "rgba(255, 255, 255," : "rgba(0, 0, 0, ",
 			});
 		}
 	};
@@ -47,7 +47,6 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 	const drawStars = useCallback(
 		(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 			for (const star of stars) {
 				ctx.beginPath();
 				ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -65,7 +64,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 				if (star.y > canvas.height) star.y = 0;
 			}
 		},
-		[],
+		[initStars],
 	);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
