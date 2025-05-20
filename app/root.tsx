@@ -7,7 +7,6 @@ import {
 	Scripts,
 	ScrollRestoration,
 	isRouteErrorResponse,
-	useRouteLoaderData,
 } from "react-router";
 
 import "./styles/main.css";
@@ -15,8 +14,7 @@ import "./styles/main.css";
 import type { LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
 import { StarCanvas } from "~/components/SpaceComponents";
-import { LoaderArgs } from "../.react-router/types/app/+types/root";
-import type { Route } from ".react-router/types/app/+types/root";
+import type { Route } from "./+types/root";
 
 export const links: LinksFunction = () => {
 	return [

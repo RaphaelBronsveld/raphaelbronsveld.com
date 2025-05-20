@@ -44,6 +44,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		}
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	const drawStars = useCallback(
 		(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);

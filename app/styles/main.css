@@ -180,22 +180,39 @@ pre {
 		@apply bg-background text-foreground;
 	}
 
-	h1 {
-		@apply text-2xl;
-	}
+	.blog {
+		@apply text-balance;
 
-	h2 {
-		@apply text-xl;
-	}
+		p {
+			@apply block my-4;
+		}
 
-	blockquote {
-		@apply p-4 italic border-l-4 border-gray-600 flex;
-	}
+		a {
+			@apply underline underline-offset-2;
+		}
 
-	blockquote:before {
-		content: "“";
-	}
-	blockquote:after {
-		content: "”";
+		h1 {
+			@apply text-2xl;
+		}
+
+		h2 {
+			@apply text-xl my-6;
+		}
+
+		h3 {
+			@apply text-lg;
+		}
+
+		blockquote {
+			@apply my-4 p-4 italic border-l-4 border-gray-600;
+		}
+
+		blockquote p:before {
+			content: "“";
+		}
+
+		blockquote p:after {
+			content: "”";
+		}
 	}
 }

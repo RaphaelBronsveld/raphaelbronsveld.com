@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { type BlogPost, getPosts } from "~/.server/posts";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardContent } from "~/components/ui/card";
-import type { Route } from "../+types/blog.index";
+import type { Route } from "./+types/index";
 
 export const loader = async () => {
 	return { posts: await getPosts() };
@@ -42,7 +42,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 export function BlogCard({ post }: { post: BlogPost }) {
 	return (
 		<Card className="overflow-hidden">
-			<Link to={`/blog/${post.slug}`} viewTransition>
+			<Link className="no-underline" to={`/blog/${post.slug}`} viewTransition>
 				<article className="md:flex">
 					<div className="bg-gray-200 h-48 md:h-auto md:w-1/3 md:flex-none">
 						<img
