@@ -37,7 +37,7 @@
 		"babel-plugin-react-compiler": "^19.1.0-rc.2",
 		"rehype-pretty-code": "^0.14.0",
 		"remark-frontmatter": "^5.0.0",
-		"remark-mdx-frontmatter": "^5.0.0",
+		"remark-mdx-frontmatter": "^5.1.0",
 		"tailwindcss": "^4.1.7",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5",
