@@ -32,7 +32,7 @@
 		"@babel/preset-typescript": "^7.27.1",
 		"@biomejs/biome": "^1.9.4",
 		"@react-router/dev": "^7.6.0",
-		"@types/react": "^19.1.4",
+		"@types/react": "^19.1.5",
 		"@types/react-dom": "^19.1.4",
 		"babel-plugin-react-compiler": "^19.1.0-rc.2",
 		"rehype-pretty-code": "^0.14.0",
