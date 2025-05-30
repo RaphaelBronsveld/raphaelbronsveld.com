@@ -1,6 +1,6 @@
 // TODO: Something with fetching routes instead of hardcoding them here.
 const routes = [
-	{ loc: "/", priority: 1.0 },
+	{ loc: "", priority: 1.0 },
 	{ loc: "/blog", priority: 1 },
 	{ loc: "/blog/preloading-fonts", priority: 1 },
 ];
