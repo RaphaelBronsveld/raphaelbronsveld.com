@@ -6,7 +6,7 @@ import { Card, CardContent } from "~/components/ui/card";
 import type { Route } from "./+types/index";
 
 export const loader = async () => {
-	return { posts: await getPosts() };
+	return { posts: getPosts() };
 };
 
 export const meta: Route.MetaFunction = () => {

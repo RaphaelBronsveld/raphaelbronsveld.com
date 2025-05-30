@@ -26,7 +26,8 @@ export const links: LinksFunction = () => {
 		},
 		{
 			rel: "icon",
-			href: "/favicon.png",
+			href: "/favicon-me.png",
+			sizes: "128x128",
 		},
 	];
 };
@@ -94,7 +95,7 @@ function Document({
 				{canonical && <link rel="canonical" href={canonical} />}
 				<Links />
 			</head>
-			<body className="bg-neutral-50 text-stone-800 dark:bg-stone-900 dark:text-neutral-50">
+			<body className="bg-neutral-50 text-stone-800 dark:bg-stone-900 dark:text-zinc-50">
 				{children}
 				<ScrollRestoration />
 				<Scripts />

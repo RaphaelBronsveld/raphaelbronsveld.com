@@ -7,7 +7,7 @@ export const routes: RouteConfig = [
 	// Blog
 	route("blog", "./routes/blog/layout.tsx", [
 		index("./routes/blog/index.tsx"),
-		route("preloading-fonts", "./routes/blog/preloading-fonts.mdx"),
+		route(":slug", "./routes/blog/post.tsx"),
 	]),
 
 	// SEO

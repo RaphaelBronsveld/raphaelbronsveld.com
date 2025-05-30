@@ -1,13 +1,17 @@
-# Raphaelbronsveld
+# Raphaelbronsveld.com
 
-Portfolio / Blog built with React Router v7 (prerelease) & Biome & Tailwind V4.
+Portfolio / Blog built with React Router v7 & Biome & Tailwind V4.
 
-⚠️ This project will contain experimental dependencies.
-
+## Features
+- MDX based blog posts with frontmatter / rehype
+- Basic SEO set-up
+- Always TODO's
 
 ## Development
 
-Run the Vite dev server:
+Install dependencies with `npm install` 
+
+Run the dev server:
 
 ```shellscript
 npm run dev

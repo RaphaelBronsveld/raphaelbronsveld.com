@@ -10,21 +10,14 @@ export type BlogPost = {
 	};
 };
 
-export const getPosts = async (): Promise<BlogPost[]> => {
+export const getPosts = (): BlogPost[] => {
 	const modules = import.meta.glob<{ frontmatter: BlogPost }>(
-		"../routes/blog/*.mdx",
+		"../routes/blog/posts/*.mdx",
 		{ eager: true },
 	);
-	const build = await import("virtual:react-router/server-build");
 	const posts = Object.entries(modules).map(([file, post]) => {
-		const id = `${file.replace("../", "").replace(/\.mdx$/, "")}`;
-		const slug =
-			build.routes !== undefined && id in build.routes
-				? build.routes[id].path
-				: undefined;
-		if (slug === undefined) throw new Error(`No route for ${id}`);
-
-		return { ...post.frontmatter, slug };
+		const id = `${file.replace("../routes/blog/posts/", "").replace(/\.mdx$/, "")}`;
+		return { ...post.frontmatter, slug: id };
 	});
 
 	return sortBy(posts, (post) => post.date, "desc");

@@ -203,6 +203,10 @@ pre {
 			@apply text-lg;
 		}
 
+		p code {
+			@apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5;
+		}
+
 		blockquote {
 			@apply my-4 p-4 italic border-l-4 border-gray-600;
 		}
