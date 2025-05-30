@@ -81,10 +81,7 @@ function Document({
 }) {
 	// A very simple, somewhat hardcoded, self-referencing canonical URL.
 	const canonical = loaderData?.pathname
-		? `https://www.raphaelbronsveld.com${loaderData.pathname}`.replace(
-				/\/$/,
-				"",
-			)
+		? `https://raphaelbronsveld.com${loaderData.pathname}`.replace(/\/$/, "")
 		: undefined;
 	return (
 		<html lang="en">

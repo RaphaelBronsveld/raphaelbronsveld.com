@@ -12,7 +12,7 @@ export const loader = async () => {
 			.map(
 				({ loc, priority }) => `
       <url>
-        <loc>https://www.raphaelbronsveld.com${loc}</loc>
+        <loc>https://raphaelbronsveld.com${loc}</loc>
         <priority>${priority}</priority>
       </url>`,
 			)
