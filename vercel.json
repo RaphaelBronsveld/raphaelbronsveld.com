@@ -1,0 +1,10 @@
+{
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"trailingSlash": false,
+	"redirects": [
+		{ "source": "/Rapha", "destination": "/", "permanent": true },
+		{ "source": "/my-work", "destination": "/", "permanent": false },
+		{ "source": "/gallery", "destination": "/", "permanent": false },
+		{ "source": "/timezones", "destination": "/", "permanent": false }
+	]
+}

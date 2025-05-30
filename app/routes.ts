@@ -1,7 +1,7 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export const routes: RouteConfig = [
-	// Home
+	// Home route. You might expect this comment to be ChatGPT generated, but is it?
 	index("./routes/index.tsx"),
 
 	// Blog
@@ -10,7 +10,10 @@ export const routes: RouteConfig = [
 		route("preloading-fonts", "./routes/blog/preloading-fonts.mdx"),
 	]),
 
-	// 404
+	// SEO
+	route("sitemap.xml", "./routes/sitemap.xml.tsx"),
+
+	// Dynamic catch-all route for 404 pages.
 	route("*", "./routes/404.tsx"),
 ];
 

@@ -27,7 +27,6 @@ export const links: LinksFunction = () => {
 		{
 			rel: "icon",
 			href: "/favicon.png",
-			// https://www.vecteezy.com/free-vector/typography
 		},
 	];
 };
@@ -44,19 +43,19 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const url = new URL(request.url);
-	return { homepage: url.pathname === "/" };
+	const pathname = new URL(request.url).pathname;
+	return { pathname };
 };
 
 export default function App({ loaderData }: Route.ComponentProps) {
-	const { homepage } = loaderData;
+	const { pathname } = loaderData;
 	return (
-		<Document>
+		<Document loaderData={loaderData}>
 			<StarCanvas />
 			<header className="max-w-3xl mx-auto p-8">
 				<nav>
 					<Link to="/" viewTransition>
-						{homepage ? (
+						{pathname === "/" ? (
 							<h1 className="text-3xl">Raphaël Bronsveld</h1>
 						) : (
 							<span className="text-3xl">Raphaël Bronsveld</span>
@@ -72,13 +71,27 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	);
 }
 
-function Document({ children }: { children: React.ReactNode }) {
+function Document({
+	loaderData,
+	children,
+}: {
+	loaderData?: Route.ComponentProps["loaderData"];
+	children: React.ReactNode;
+}) {
+	// A very simple, somewhat hardcoded, self-referencing canonical URL.
+	const canonical = loaderData?.pathname
+		? `https://www.raphaelbronsveld.com${loaderData.pathname}`.replace(
+				/\/$/,
+				"",
+			)
+		: undefined;
 	return (
 		<html lang="en">
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
+				{canonical && <link rel="canonical" href={canonical} />}
 				<Links />
 			</head>
 			<body className="bg-neutral-50 text-stone-800 dark:bg-stone-900 dark:text-neutral-50">
