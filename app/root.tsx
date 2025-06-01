@@ -15,6 +15,7 @@ import type { LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
 import { StarCanvas } from "~/components/SpaceComponents";
 import type { Route } from "./+types/root";
+import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 
 export const links: LinksFunction = () => {
 	return [
@@ -45,7 +46,7 @@ export const meta: MetaFunction = () => {
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const pathname = new URL(request.url).pathname;
-	return { pathname };
+	return { pathname, trackingId: process.env.GA_TRACKING_ID };
 };
 
 export default function App({ loaderData }: Route.ComponentProps) {
@@ -83,6 +84,8 @@ function Document({
 	const canonical = loaderData?.pathname
 		? `https://raphaelbronsveld.com${loaderData.pathname}`.replace(/\/$/, "")
 		: undefined;
+
+	const trackingId = loaderData?.trackingId;
 	return (
 		<html lang="en">
 			<head>
@@ -96,11 +99,7 @@ function Document({
 				{children}
 				<ScrollRestoration />
 				<Scripts />
-				<script
-					defer
-					src="https://static.cloudflareinsights.com/beacon.min.js"
-					data-cf-beacon='{"token": "2fdb336921764149bbffda02fdc8af72"}'
-				/>
+				{trackingId && <GoogleAnalytics trackingId={trackingId} />}
 			</body>
 		</html>
 	);
