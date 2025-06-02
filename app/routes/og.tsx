@@ -3,9 +3,8 @@ import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
 import type { Route } from "./+types/og";
 
-const font = await readFile("./public/fonts/lexend.ttf");
-
 export const loader = async ({ request }: Route.LoaderArgs) => {
+	const font = await readFile("./public/fonts/lexend.ttf");
 	const url = new URL(request.url);
 	const title = url.searchParams.get("title");
 
