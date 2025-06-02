@@ -55,7 +55,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
 								</div>
 							</div>
 						</div>
-						<p className="text-muted-foreground text-sm m-0 text-base line-clamp-2">
+						<p className="text-muted-foreground text-sm m-0 line-clamp-2">
 							{post.description}
 						</p>
 					</CardContent>
