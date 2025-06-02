@@ -4,6 +4,8 @@ export const routes: RouteConfig = [
 	// Home route. You might expect this comment to be ChatGPT generated, but is it?
 	index("./routes/index.tsx"),
 
+	route("og", "./routes/og.tsx"),
+
 	// Blog
 	route("blog", "./routes/blog/layout.tsx", [
 		index("./routes/blog/index.tsx"),

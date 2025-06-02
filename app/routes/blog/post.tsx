@@ -14,11 +14,12 @@ export function loadPost(slug: string) {
 	return entry[1] as { default: React.ComponentType; frontmatter?: any };
 }
 
-export const loader = async ({ params }: Route.LoaderArgs) => {
+export const loader = async ({ request, params }: Route.LoaderArgs) => {
+	const { origin } = new URL(request.url);
 	const { slug } = params;
 	try {
 		const { frontmatter } = loadPost(slug);
-		return { frontmatter, slug };
+		return { origin, slug, frontmatter };
 	} catch (error) {
 		throw new Response("Not found", { status: 404 });
 	}
@@ -39,4 +40,21 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 	);
 }
 
-export const meta: Route.MetaFunction = ({ data }) => data.frontmatter.meta;
+export const meta: Route.MetaFunction = ({ data }: Route.MetaArgs) => {
+	const { origin, frontmatter } = data;
+
+	const ogTitle = encodeURIComponent(
+		frontmatter.meta?.find((m) => m.property === "og:title")?.content ??
+			frontmatter.title,
+	);
+
+	const dynamicOg = {
+		property: "og:image",
+		content: `${origin}/og?title=${ogTitle}`,
+	};
+
+	const metaWithoutOgImage =
+		frontmatter.meta?.filter((m) => m.property !== "og:image") ?? [];
+
+	return [...metaWithoutOgImage, dynamicOg];
+};
