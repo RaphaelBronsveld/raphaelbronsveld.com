@@ -29,7 +29,7 @@ export const links: LinksFunction = () => {
 			rel: "icon",
 			href: "/favicon-me-v1.png",
 			type: "image/png",
-			sizes: "160x160",
+			sizes: "96x96",
 		},
 	];
 };
