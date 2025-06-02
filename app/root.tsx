@@ -13,9 +13,9 @@ import "./styles/main.css";
 
 import type { LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
+import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { StarCanvas } from "~/components/SpaceComponents";
 import type { Route } from "./+types/root";
-import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 
 export const links: LinksFunction = () => {
 	return [
@@ -27,8 +27,9 @@ export const links: LinksFunction = () => {
 		},
 		{
 			rel: "icon",
-			href: "/favicon-me.png",
-			sizes: "128x128",
+			href: "/favicon-me-v1.png",
+			type: "image/png",
+			sizes: "160x160",
 		},
 	];
 };
@@ -54,18 +55,27 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	return (
 		<Document loaderData={loaderData}>
 			<StarCanvas />
-			<header className="max-w-3xl mx-auto p-8">
+			<header className="max-w-3xl mx-auto p-6">
 				<nav>
-					<Link to="/" viewTransition>
+					<Link
+						to="/"
+						viewTransition
+						className="flex items-center justify-between"
+					>
 						{pathname === "/" ? (
 							<h1 className="text-3xl">Raphaël Bronsveld</h1>
 						) : (
 							<span className="text-3xl">Raphaël Bronsveld</span>
 						)}
+						<img
+							src="/favicon-me-v1.png"
+							className="w-8 h-8"
+							alt="It's a beautiful of Raphaël Bronsveld.."
+						/>
 					</Link>
 				</nav>
 			</header>
-			<main className="max-w-3xl mx-auto px-8">
+			<main className="max-w-3xl mx-auto px-6">
 				<Outlet />
 			</main>
 			<Footer />

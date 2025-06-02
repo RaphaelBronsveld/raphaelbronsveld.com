@@ -25,10 +25,18 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
 };
 
 export default function Post({ loaderData }: Route.ComponentProps) {
-	const { slug } = loaderData;
+	const { slug, frontmatter } = loaderData;
 	const Component = loadPost(slug);
 
-	return <Component.default />;
+	return (
+		<article>
+			<h1>{frontmatter.title}</h1>
+			<span>{frontmatter.date}</span>
+			<div className="md">
+				<Component.default />
+			</div>
+		</article>
+	);
 }
 
 export const meta: Route.MetaFunction = ({ data }) => data.frontmatter.meta;
