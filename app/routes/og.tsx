@@ -4,7 +4,11 @@ import satori from "satori";
 import type { Route } from "./+types/og";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const font = await readFile("./../../public/fonts/lexend.ttf");
+	const { origin } = new URL(request.url);
+	const fontUrl = `${origin}/fonts/lexend.ttf`;
+	const res = await fetch(fontUrl);
+	const fontData = await res.arrayBuffer();
+
 	const url = new URL(request.url);
 	const title = url.searchParams.get("title");
 
@@ -80,7 +84,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 			fonts: [
 				{
 					name: "Lexend",
-					data: font,
+					data: fontData,
 					weight: 400,
 					style: "normal",
 				},
