@@ -26,10 +26,16 @@ export const links: LinksFunction = () => {
 			crossOrigin: "anonymous",
 		},
 		{
-			rel: "icon",
+			rel: "shortcut icon",
 			href: "/favicon-me-v1.png",
 			type: "image/png",
 			sizes: "96x96",
+		},
+		{
+			rel: "shortcut icon",
+			href: "/favicon-me-v1-48x.png",
+			type: "image/png",
+			sizes: "48x48",
 		},
 	];
 };
@@ -71,6 +77,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 							src="/favicon-me-v1.png"
 							className="w-8 h-8"
 							alt="It's a beautiful of Raphaël Bronsveld.."
+							fetchPriority="high"
 						/>
 					</Link>
 				</nav>
