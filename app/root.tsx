@@ -16,6 +16,7 @@ import Footer from "~/components/Footer";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { StarCanvas } from "~/components/SpaceComponents";
 import type { Route } from "./+types/root";
+import { Header } from "./components/Header";
 
 export const links: LinksFunction = () => {
 	return [
@@ -26,13 +27,13 @@ export const links: LinksFunction = () => {
 			crossOrigin: "anonymous",
 		},
 		{
-			rel: "shortcut icon",
+			rel: "icon",
 			href: "/favicon-me-v1.png",
 			type: "image/png",
 			sizes: "96x96",
 		},
 		{
-			rel: "shortcut icon",
+			rel: "icon",
 			href: "/favicon-me-v1-48x.png",
 			type: "image/png",
 			sizes: "48x48",
@@ -61,27 +62,13 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	return (
 		<Document loaderData={loaderData}>
 			<StarCanvas />
-			<header className="max-w-3xl mx-auto p-6">
-				<nav>
-					<Link
-						to="/"
-						viewTransition
-						className="flex items-center justify-between"
-					>
-						{pathname === "/" ? (
-							<h1 className="text-3xl">Raphaël Bronsveld</h1>
-						) : (
-							<span className="text-3xl">Raphaël Bronsveld</span>
-						)}
-						<img
-							src="/favicon-me-v1.png"
-							className="w-8 h-8"
-							alt="It's a beautiful of Raphaël Bronsveld.."
-							fetchPriority="high"
-						/>
-					</Link>
-				</nav>
-			</header>
+			<Header>
+				{pathname === "/" ? (
+					<h1>Raphaël Bronsveld</h1>
+				) : (
+					<span>Raphaël Bronsveld</span>
+				)}
+			</Header>
 			<main className="max-w-3xl mx-auto px-6">
 				<Outlet />
 			</main>

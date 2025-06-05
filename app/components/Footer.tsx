@@ -29,7 +29,7 @@ export default function Footer() {
 							// biome-ignore lint/suspicious/noArrayIndexKey: It's just a footer.
 							key={index}
 							rel="me"
-							className="p-4 dark:bg-stone-900"
+							className="p-4 dark:bg-stone-900 hover:scale-110 transition-transform"
 						>
 							<span className="sr-only">{link.label}</span>
 							<link.component />

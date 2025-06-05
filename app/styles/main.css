@@ -192,7 +192,7 @@ pre {
 		}
 
 		h1 {
-			@apply text-2xl;
+			@apply text-2xl mb-1;
 		}
 
 		h2 {
@@ -208,7 +208,7 @@ pre {
 		}
 
 		blockquote {
-			@apply my-4 p-4 italic border-l-4 border-gray-600;
+			@apply my-4 p-2 italic border-l-4 border-gray-600;
 		}
 
 		blockquote p:before {

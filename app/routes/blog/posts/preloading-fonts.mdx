@@ -1,21 +1,14 @@
 ---
 title: You finally preloaded your fonts and now they are loading twice?! What the ..?
 date: 19-05-2025
-description: You wanted to improve the performance and you noticed there were 2 network calls.. what the..?
+description: You wanted to implement font preloading to improve performance and you noticed there were 2 network calls.. what the..?
   
 meta:
   - title: Preloaded fonts loading twice - Raphaël Bronsveld
   - description: Ever dealt with preloading fonts and noticed they loaded twice? Here's why.
-  
   - ogtitle:
     property: og:title
     content: Preloaded fonts loading twice..?
-  - ogurl:
-    property: og:url
-    content: https://raphaelbronsveld.com/blog/preloading-fonts
-  - ogdescription:
-    property: og:description
-    content: Ever dealt with preloading fonts and noticed they loaded twice? Here's why.
 ---
 
 You finally decided to tackle your project font loading strategy and you stumbled upon the fact that your font(s) are being loaded twice. How's that possible?
@@ -38,5 +31,3 @@ Make sure your font file actually allows it to be used as a cached asset by chec
 Fonts need to be cacheable and "CORS-friendly" to allow reuse. Your `Cache-Control` header should be set-up correctly. Something like `public, max-age=31536000, immutable` is something you could use.
 
 Now your font should only load once. Please refresh your page 20+ times just to be sure. 🙃
-
-[Go back to blog overview](/blog)

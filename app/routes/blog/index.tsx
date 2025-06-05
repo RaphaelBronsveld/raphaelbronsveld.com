@@ -23,7 +23,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 	const { posts } = loaderData;
 	return (
 		<>
-			<h1 className="text-2xl mb-6">Blog</h1>
+			<h1 className="text-2xl mb-6">Blog.</h1>
 
 			<p className="mb-4">
 				A collection of blog posts covering topics such as sysops/devops,
@@ -45,9 +45,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
 				<article>
 					<CardContent className="p-4 md:p-6">
 						<div className="flex flex-col gap-1 pb-4">
-							<h2 className="text-lg font-bold m-0 line-clamp-2">
-								{post.title}
-							</h2>
+							<h2 className="text-lg m-0 line-clamp-2">{post.title}</h2>
 							<div className="flex items-center gap-2">
 								<div className="flex items-center text-xs text-muted-foreground">
 									<CalendarIcon className="mr-1 h-3 w-3" />
