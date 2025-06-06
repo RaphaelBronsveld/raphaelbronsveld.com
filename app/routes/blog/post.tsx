@@ -1,5 +1,7 @@
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
+import type { BlogPosting, WithContext } from "schema-dts";
+import type { BlogPost } from "~/.server/posts";
 import type { Route } from "./+types/post";
 
 // TODO: refactor into one file with blog overview.
@@ -19,43 +21,59 @@ export function loadPost(slug: string) {
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const { origin } = new URL(request.url);
 	const { slug } = params;
+
 	try {
 		const { frontmatter } = loadPost(slug);
-		return { origin, slug, frontmatter };
+
+		const ogTitle = encodeURIComponent(
+			frontmatter.meta?.find((m) => m.property === "og:title")?.content ??
+				frontmatter.title,
+		);
+
+		const og = {
+			url: `${origin}/blog/${slug}`,
+			image: `${origin}/og?title=${ogTitle}`,
+		};
+
+		return { slug, og, frontmatter };
 	} catch (error) {
 		throw new Response("Not found", { status: 404 });
 	}
 };
 
 export default function Post({ loaderData }: Route.ComponentProps) {
-	const { slug, frontmatter } = loaderData;
+	const { slug, frontmatter, og } = loaderData;
 	const Component = loadPost(slug);
 
 	return (
-		<article>
-			<h1>{frontmatter.title}</h1>
-			<span className="flex gap-2">
-				<CalendarIcon className="w-4" />
-				{frontmatter.date}
-			</span>
-			<div className="md">
-				<Component.default />
-			</div>
-			<Link to="/blog" className="group no-underline flex gap-2">
-				<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
-				Go back to blog
-			</Link>
-		</article>
+		<>
+			<script
+				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(getStructuredData(frontmatter, og)),
+				}}
+			/>
+			<article>
+				<h1>{frontmatter.title}</h1>
+				<span className="flex gap-2">
+					<CalendarIcon className="w-4" />
+					{frontmatter.date}
+				</span>
+				<div className="md">
+					<Component.default />
+				</div>
+				<Link to="/blog" className="group no-underline flex gap-2">
+					<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
+					Go back to blog
+				</Link>
+			</article>
+		</>
 	);
 }
 
 export const meta: Route.MetaFunction = ({ data }: Route.MetaArgs) => {
-	const { origin, frontmatter, slug } = data;
-
-	const ogTitle = encodeURIComponent(
-		frontmatter.meta?.find((m) => m.property === "og:title")?.content ??
-			frontmatter.title,
-	);
+	const { og, frontmatter } = data;
 
 	const dynamicOgs = [
 		{
@@ -64,13 +82,37 @@ export const meta: Route.MetaFunction = ({ data }: Route.MetaArgs) => {
 		},
 		{
 			property: "og:url",
-			content: `${origin}/blog/${slug}`,
+			content: og.url,
 		},
 		{
 			property: "og:image",
-			content: `${origin}/og?title=${ogTitle}`,
+			content: og.image,
 		},
 	];
 
 	return [...frontmatter.meta, ...dynamicOgs];
 };
+/**
+ * Return strcutured data for the blog post.
+ * https://developers.google.com/search/docs/appearance/structured-data/article
+ */
+function getStructuredData(post: BlogPost, og: { url: string; image: string }) {
+	const [d, m, y] = post.date.split("-");
+	const dateISO = new Date(`${y}-${m}-${d}`).toISOString();
+	return {
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		headline: post.title,
+		datePublished: dateISO,
+		description: post.description,
+		image: og.image,
+		author: [
+			{
+				"@type": "Person",
+				name: "Raphaël Bronsveld",
+				url: "https://raphaelbronsveld.com",
+			},
+		],
+		keywords: "web performance, react, vue, frontend development",
+	} satisfies WithContext<BlogPosting>;
+}

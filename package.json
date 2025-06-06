@@ -41,6 +41,7 @@
 		"rehype-pretty-code": "^0.14.1",
 		"remark-frontmatter": "^5.0.0",
 		"remark-mdx-frontmatter": "^5.1.0",
+		"schema-dts": "^1.1.5",
 		"tailwindcss": "^4.1.8",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5",
