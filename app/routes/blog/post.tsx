@@ -106,6 +106,7 @@ function getStructuredData(post: BlogPost, og: { url: string; image: string }) {
 		datePublished: dateISO,
 		description: post.description,
 		image: og.image,
+		mainEntityOfPage: og.url,
 		author: [
 			{
 				"@type": "Person",
@@ -114,5 +115,10 @@ function getStructuredData(post: BlogPost, og: { url: string; image: string }) {
 			},
 		],
 		keywords: "web performance, react, vue, frontend development",
+		isPartOf: {
+			"@type": "Blog",
+			name: "Blog - Raphaël Bronsveld",
+			url: "https://raphaelbronsveld.com/blog",
+		},
 	} satisfies WithContext<BlogPosting>;
 }
