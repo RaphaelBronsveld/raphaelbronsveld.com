@@ -47,7 +47,7 @@ export const meta: MetaFunction = () => {
 		{
 			name: "description",
 			content:
-				"The online home location of Raphaël Bronsveld. You'll be able to find blog posts here as well.",
+				"I'm Raphaël Bronsveld, a frontend developer and web performance enthusiast passionate about building faster and better websites for everyone.",
 		},
 	];
 };
