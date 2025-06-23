@@ -21,8 +21,8 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 	}[] = [];
 
 	const starVelocity = {
-		x: 0.08,
-		y: 0.1,
+		x: 0.01,
+		y: 0.03,
 	};
 
 	const [darkmode, setDarkmode] = useState(false);

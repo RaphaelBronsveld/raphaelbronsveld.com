@@ -1,22 +1,8 @@
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { BlogPosting, WithContext } from "schema-dts";
-import type { BlogPost } from "~/.server/posts";
+import { type BlogPost, loadPost } from "~/features/mdx/posts";
 import type { Route } from "./+types/post";
-
-// TODO: refactor into one file with blog overview.
-const posts = import.meta.glob("./posts/*.mdx", { eager: true });
-export function loadPost(slug: string) {
-	const entry = Object.entries(posts).find(([path]) =>
-		path.includes(`/${slug}.mdx`),
-	);
-
-	if (!entry) throw new Response("Not found", { status: 404 });
-
-	// TODO: type
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	return entry[1] as { default: React.ComponentType; frontmatter?: any };
-}
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const { origin } = new URL(request.url);
@@ -26,8 +12,10 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 		const { frontmatter } = loadPost(slug);
 
 		const ogTitle = encodeURIComponent(
-			frontmatter.meta?.find((m) => m.property === "og:title")?.content ??
-				frontmatter.title,
+			frontmatter.meta?.find(
+				(m): m is { property: string; content: string } =>
+					"property" in m && m.property === "og:title",
+			)?.content ?? frontmatter.title,
 		);
 
 		const og = {
@@ -73,9 +61,13 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 }
 
 export const meta: Route.MetaFunction = ({ data }: Route.MetaArgs) => {
+	if (!data) return [];
 	const { og, frontmatter } = data;
 
-	const dynamicOgs = [
+	const dynamicMeta = [
+		{
+			title: `${frontmatter.title} - Raphaël Bronsveld`,
+		},
 		{
 			property: "og:description",
 			content: frontmatter.description,
@@ -90,8 +82,9 @@ export const meta: Route.MetaFunction = ({ data }: Route.MetaArgs) => {
 		},
 	];
 
-	return [...frontmatter.meta, ...dynamicOgs];
+	return [...frontmatter.meta, ...dynamicMeta];
 };
+
 /**
  * Return strcutured data for the blog post.
  * https://developers.google.com/search/docs/appearance/structured-data/article

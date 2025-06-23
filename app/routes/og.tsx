@@ -1,4 +1,3 @@
-import { readFile } from "node:fs/promises";
 import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
 import type { Route } from "./+types/og";

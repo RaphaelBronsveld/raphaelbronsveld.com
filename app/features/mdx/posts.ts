@@ -1,22 +1,33 @@
+import type { MetaDescriptor } from "react-router";
+
 export type BlogPost = {
 	slug: string;
 	title: string;
 	description: string;
 	date: string;
-	category: string;
-	image: {
-		src: string;
-		alt: string;
-	};
+	meta: MetaDescriptor[];
+};
+
+const modules = import.meta.glob<{ frontmatter: BlogPost }>(
+	"../../routes/blog/posts/*.mdx",
+	{
+		eager: true,
+	},
+);
+
+export const loadPost = (slug: string) => {
+	const entry = Object.entries(modules).find(([path]) =>
+		path.includes(`/${slug}.mdx`),
+	);
+
+	if (!entry) throw new Response("Not found", { status: 404 });
+
+	return entry[1] as { default: React.ComponentType; frontmatter: BlogPost };
 };
 
 export const getPosts = (): BlogPost[] => {
-	const modules = import.meta.glob<{ frontmatter: BlogPost }>(
-		"../routes/blog/posts/*.mdx",
-		{ eager: true },
-	);
 	const posts = Object.entries(modules).map(([file, post]) => {
-		const id = `${file.replace("../routes/blog/posts/", "").replace(/\.mdx$/, "")}`;
+		const id = `${file.replace("../../routes/blog/posts/", "").replace(/\.mdx$/, "")}`;
 		return { ...post.frontmatter, slug: id };
 	});
 
