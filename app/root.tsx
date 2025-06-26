@@ -11,12 +11,13 @@ import {
 
 import "./styles/main.css";
 
-import type { LinksFunction } from "react-router";
+import type { HeadersFunction, LinksFunction } from "react-router";
 import Footer from "~/components/Footer";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { StarCanvas } from "~/components/SpaceComponents";
 import type { Route } from "./+types/root";
 import { Header } from "./components/Header";
+import { CACHE_CONTROL } from "./lib/http.server";
 
 export const links: LinksFunction = () => {
 	return [
@@ -108,6 +109,12 @@ function Document({
 		</html>
 	);
 }
+
+export const headers: HeadersFunction = () => {
+	return {
+		"Cache-Control": CACHE_CONTROL.DEFAULT,
+	};
+};
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	let message = "Oops!";
