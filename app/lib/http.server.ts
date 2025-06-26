@@ -4,5 +4,5 @@ export const CACHE_CONTROL = {
 	 * back/forward/etc. it's super fast. SWR for 1 week on CDN so it stays fast,
 	 * but people get typos/fixes and stuff too.
 	 */
-	DEFAULT: "max-age=300, stale-while-revalidate=604800",
+	DEFAULT: "max-age=0, s-maxage=300, stale-while-revalidate=604800",
 };
