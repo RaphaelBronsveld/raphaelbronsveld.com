@@ -67,7 +67,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 				{pathname === "/" ? (
 					<h1>Raphaël Bronsveld</h1>
 				) : (
-					<span>Raphaël Bronsveld</span>
+					<span className="font-lexend">Raphaël Bronsveld</span>
 				)}
 			</Header>
 			<main className="max-w-3xl mx-auto px-6">
