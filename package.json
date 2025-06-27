@@ -39,6 +39,7 @@
 		"@types/react": "^19.1.6",
 		"@types/react-dom": "^19.1.5",
 		"babel-plugin-react-compiler": "^19.1.0-rc.2",
+		"fontaine": "^0.6.0",
 		"rehype-pretty-code": "^0.14.1",
 		"remark-frontmatter": "^5.0.0",
 		"remark-mdx-frontmatter": "^5.1.0",

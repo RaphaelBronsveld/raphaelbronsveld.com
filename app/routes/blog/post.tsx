@@ -44,9 +44,9 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 			/>
 			<article>
 				<h1>{frontmatter.title}</h1>
-				<span className="flex gap-2">
+				<span className="flex gap-1 text-xs items-center">
 					<CalendarIcon className="w-4" />
-					{frontmatter.date}
+					<span>{frontmatter.date}</span>
 				</span>
 				<div className="md">
 					<Component.default />
