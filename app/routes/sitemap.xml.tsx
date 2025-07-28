@@ -8,7 +8,7 @@ export const loader = async () => {
 		{ slug: "/blog" },
 		...posts.map((post) => ({
 			...post,
-			slug: `/blog/${post.slug}`, // TODO: might want to move everything to just /blog ?
+			slug: `/blog/${post.slug}`,
 		})),
 	];
 

@@ -24,7 +24,7 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 		};
 
 		return { slug, og, frontmatter };
-	} catch (error) {
+	} catch (_error) {
 		throw new Response("Not found", { status: 404 });
 	}
 };
@@ -37,7 +37,7 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 		<>
 			<script
 				type="application/ld+json"
-				// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: structured data
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(getStructuredData(frontmatter, og)),
 				}}

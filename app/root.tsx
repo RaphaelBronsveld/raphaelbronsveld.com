@@ -1,12 +1,11 @@
 import {
-	Link,
+	isRouteErrorResponse,
 	Links,
 	Meta,
 	type MetaFunction,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-	isRouteErrorResponse,
 } from "react-router";
 
 import "./styles/main.css";

@@ -7,7 +7,7 @@ export function GoogleAnalytics({ trackingId }: { trackingId: string }) {
 			/>
 			<script
 				type="text/javascript"
-				// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: it's Google. It's always dangerous, but still "needed".
 				dangerouslySetInnerHTML={{
 					__html: `
                 window.dataLayer = window.dataLayer || [];

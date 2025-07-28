@@ -1,4 +1,4 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { index, type RouteConfig, route } from "@react-router/dev/routes";
 
 export const routes: RouteConfig = [
 	// Home route. You might expect this comment to be ChatGPT generated, but is it?

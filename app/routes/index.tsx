@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Link, href } from "react-router";
+import { href, Link } from "react-router";
 
 export default function Index() {
 	return (

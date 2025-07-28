@@ -3,5 +3,5 @@ export const loader = () => {
 };
 
 export default function NotFound() {
-	return <></>;
+	return;
 }

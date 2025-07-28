@@ -2,11 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export function Crescent() {
 	return (
-		<>
-			<div className="hidden dark:block moon relative mt-auto w-screen pt-8 h-32 overflow-hidden">
-				<div className="bg-stone-900 absolute transform-[translateX(-50%)] left-[50%] h-[1500px] w-[1500px] rounded-full animate-glow" />
-			</div>
-		</>
+		<div className="hidden dark:block moon relative mt-auto w-screen pt-8 h-32 overflow-hidden">
+			<div className="bg-stone-900 absolute transform-[translateX(-50%)] left-[50%] h-[1500px] w-[1500px] rounded-full animate-glow" />
+		</div>
 	);
 }
 
@@ -44,7 +42,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		}
 	};
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
+	// biome-ignore lint/correctness/useExhaustiveDependencies: false positive
 	const drawStars = useCallback(
 		(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -68,7 +66,7 @@ export function StarCanvas({ starsCount = 100 }: { starsCount?: number }) {
 		[initStars],
 	);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: false positive
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
