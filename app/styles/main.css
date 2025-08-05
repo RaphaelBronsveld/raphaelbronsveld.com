@@ -183,12 +183,22 @@ pre {
 			@apply text-lg;
 		}
 
-		p code {
-			@apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5;
+		ul {
+			@apply list-disc ml-3 mb-4;
+			li {
+				@apply py-1;
+				ul {
+					@apply mb-0;
+				}
+			}
+		}
+
+		code {
+			@apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5 text-sm;
 		}
 
 		blockquote {
-			@apply my-4 p-2 italic border-l-4 border-gray-600;
+			@apply my-4 px-2 py-0.5 italic border-l-4 border-gray-600;
 		}
 
 		blockquote p:before {

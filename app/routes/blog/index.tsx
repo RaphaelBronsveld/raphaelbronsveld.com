@@ -29,7 +29,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 				A collection of blog posts covering topics such as sysops/devops,
 				performance, frontend frameworks and more.
 			</p>
-			<ul className="space-y-2">
+			<ul className="space-y-2 m-0">
 				{posts.map((post) => (
 					<BlogCard post={post} key={post.slug} />
 				))}
