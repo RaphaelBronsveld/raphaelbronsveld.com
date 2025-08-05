@@ -1,0 +1,36 @@
+---
+title: React Server Components in React Router - First impressions
+date: 01-08-2025
+description: React Server Components are available through an unstable release for React Router. Let's see how they work.
+  
+meta:
+  - description: React Server Components are available through an unstable release for React Router. Let's see how they work.
+  - ogtitle:
+    property: og:title
+    content: RCS's in React Router
+---
+
+A couple of weeks ago, the Remix team shared more [insights](https://remix.run/blog/react-router-and-react-server-components) into how RSCs will work with React Router. And after a bit of patience, while everyone’s excited, we finally get to [experiment](https://reactrouter.com/changelog#v770) with RSCs in React Router.
+
+Assuming you're already somewhat aware of what RSCs are and what they do, why would we want this?
+## Advantages
+
+- RSCs render on the _server_ only (it's quite literally in the name). The only thing that gets send (streamed) to the client is some serialized data that represents the component. Since it never gets send to the browser we can also use some "heavier" dependencies like database clients without it impacting your client side js bundle.
+- Reducing latency. Especially in optimizing the time it takes for content to appear for users.
+- You can use backend resources directly inside components without exposing them to the client. This enables you to create a tighter backend integration.
+
+## How about RSCs in React Router?
+
+**Please note that everything is still unstable!**
+
+We had to be a little patient.. but following the RSC [docs](https://reactrouter.com/how-to/react-server-components) we also get a glimpse of what the future _might_ look like. I thought it would be a fun experiment to move this website to RSCs!
+
+### Initial impressions
+While scanning through the example [template](https://github.com/remix-run/react-router-templates/tree/main/unstable_rsc-vite) I noticed the following changes. Most of these API's & implementation details will probably change again, but it's still interesting to take a look.
+
+- React Router itself is not used as a Vite plugin, instead `@vitejs/plugin-rsc/plugin` is used with 3 entry files.
+- No more `entry.server.tsx` and `entry.client.tsx`, now we have `entry.browser.tsx`, `entry.rsc.tsx` and `entry.ssr.tsx`.
+- A different routes configuration with `RSCRouteConfig`
+
+### Migrating blog to RSC
+Blogs are a pretty good candidate for Server Component routes since I don't need any interactivity now.

@@ -4,7 +4,7 @@
 	"sideEffects": false,
 	"type": "module",
 	"scripts": {
-		"dev": "react-router dev",
+		"dev": "vite dev",
 		"build": "react-router build",
 		"start": "react-router-serve ./build/server/index.js",
 		"check": "biome check --write ./app",
@@ -38,6 +38,8 @@
 		"@types/node": "^24.1.0",
 		"@types/react": "^19.1.8",
 		"@types/react-dom": "^19.1.6",
+		"@vitejs/plugin-react": "^4.7.0",
+		"@vitejs/plugin-rsc": "^0.4.17",
 		"babel-plugin-react-compiler": "^19.1.0-rc.2",
 		"fontaine": "^0.6.0",
 		"rehype-pretty-code": "^0.14.1",

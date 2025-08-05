@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { href, Link } from "react-router";
+import { Link } from "react-router";
 
 export default function Index() {
 	return (
@@ -20,7 +20,7 @@ export default function Index() {
 					finding smarter ways to deliver value.
 				</p>
 				<p>And I like to write!</p>
-				<Link to={href("/blog")} className="flex gap-1 group" viewTransition>
+				<Link to="/blog" className="flex gap-1 group" viewTransition>
 					Check out my blog{" "}
 					<ArrowRight className="group-hover:translate-x-1 w-4 transition-transform" />
 				</Link>

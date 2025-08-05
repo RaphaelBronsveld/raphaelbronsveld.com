@@ -182,9 +182,15 @@ pre {
 		h3 {
 			@apply text-lg;
 		}
+		ul {
+			@apply list-disc ml-3;
+			li {
+				@apply py-1;
+			}
+		}
 
-		p code {
-			@apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5;
+		code {
+			@apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5 text-sm;
 		}
 
 		blockquote {
