@@ -31,7 +31,14 @@ export const getPosts = (): BlogPost[] => {
 		return { ...post.frontmatter, slug: id };
 	});
 
-	return sortBy(posts, (post) => post.date, "desc");
+	return sortBy<BlogPost>(
+		posts,
+		(post) => {
+			const [d, m, y] = post.date.split("-").map(Number);
+			return new Date(y, m - 1, d).getTime();
+		},
+		"desc",
+	);
 };
 
 function sortBy<T>(
