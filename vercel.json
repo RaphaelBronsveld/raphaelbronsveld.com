@@ -9,5 +9,6 @@
 		{ "source": "/gallery", "destination": "/", "permanent": false },
 		{ "source": "/timezones", "destination": "/", "permanent": false },
 		{ "source": "/photography", "destination": "/", "permanent": false }
-	]
+	],
+	"outputDirectory": "dist"
 }
