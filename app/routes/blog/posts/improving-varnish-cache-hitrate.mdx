@@ -58,11 +58,10 @@ sub vcl_recv {
         set req.url = regsub(req.url, "[?|&]+$", "");
     }
 ```
+<br/>
 
 #### Trailing slashes
 Keep it consistent. Do I need to add more context here? 🙊
-
-<br/>
 
 ### Cookies
 Varnish by default will not cache any object from the backend with a `Set-Cookie` header. If you're sure your page doesn't need cookies, strip them!
