@@ -42,12 +42,13 @@ Inspect your cache storage for Varnish by running
 varnishstat -f "SMA.*.g_*" -1
 ```
 
-Keep an eye on `g_bytes` & `g_space`. If `g_space` is too low it could be an indication that objects are being evicted. You can check `n_lru_nuked` with `varnishstat` to confirm objects are being evicted due to memory pressure. Time to allocate more space or tune your caching strategy.
+Keep an eye on `g_bytes` & `g_space`. If `g_space` is too low it could be an indication that objects are being evicted. You can check `n_lru_nuked` with `varnishstat` to confirm objects are being evicted due to memory pressure. Time to allocate more space for Varnish or improve your caching strategy.
 
 ### Normalizing requests
-Different url's for the same content? Bye-bye hit rate. Normalizing requests is the process of transforming requests into a consistent format before our cache rules are applied. Small differences in requests can create separate cache entries (for the same content), which is something we'd like to avoid. Here's what we can do.
+Different url's for the same content? Bye-bye hit rate. Normalizing requests is the process of transforming requests into a consistent format before our cache rules are applied. Small differences in requests can create separate cache entries (for the same content), which is something we'd like to avoid as much as possible. Here's something we can do.
 
-Remove query string params. This only removes them _internally_. Analytics & tracking still work (yay?).
+#### Remove query string params.
+This only removes them _internally_. Analytics & tracking still work (yay?).
 
 ```bash
 sub vcl_recv {
@@ -57,6 +58,10 @@ sub vcl_recv {
         set req.url = regsub(req.url, "[?|&]+$", "");
     }
 ```
+
+#### Trailing slashes
+Keep it consistent. Do I need to add more context here? 🙊
+
 <br/>
 
 ### Cookies
