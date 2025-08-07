@@ -187,16 +187,18 @@ pre {
 			@apply list-disc ml-3 mb-4;
 			li {
 				@apply py-1;
+				/* biome-ignore lint/style/noDescendingSpecificity: no need */
 				ul {
 					@apply mb-0;
 				}
 			}
 		}
 
-		p, li {
-		  code {
-      @apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5 text-sm;
-		  }
+		p,
+		li {
+			code {
+				@apply bg-zinc-700 text-zinc-50 rounded-sm px-1 py-0.5 text-sm;
+			}
 		}
 
 		blockquote {
