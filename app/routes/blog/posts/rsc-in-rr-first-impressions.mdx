@@ -1,6 +1,6 @@
 ---
 title: React Server Components in React Router – First Impressions
-date: 05-08-2025
+date: 07-08-2025
 description: React Server Components are now available through an unstable release for React Router. Let's see how they work.
 meta:
   - description: React Server Components are now available through an unstable release for React Router. Let's see how they work.
@@ -113,6 +113,19 @@ export function MovieClientPage({ movie }) {
 If you're curious about how the example above works. Go through the React [docs](https://react.dev/reference/react/use#streaming-data-from-server-to-client) :) !
 
 ### Performance
+
+Just for fun I decided to run
+```shell
+autocannon -c 50 -d 30 http://localhost:5173
+```
+on the homepage with a RSC route and the Route module that's just returning the homepage (basically static html). Nothing too fancy, an absolutely worthless test but the funny thing was that the RSC route would always be able to process more requests.
+
+Should we draw conclusions from this? Yes move everything over now!!1 (j/k)
+
+When implementing RSCs just be mindful of the potential performance issues _you_ can introduce. It's a powerful tool but since it's so different from what we used to.. here are some things you can keep in mind.
+
+- Use Suspense boundaries where needed, RSCs WILL "block" your navigation until the server component is done executing.
+- n+1 queries. You create a "list" component where each child RSC fetches data? Not good.
 
 ### TL;DR
 
