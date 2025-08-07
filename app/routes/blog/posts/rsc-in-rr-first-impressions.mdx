@@ -52,6 +52,66 @@ Me, being slightly ignorant (and curious), moved everything to the main `root` r
 
 ### Loader vs RSC
 
+If you've been working with React Router / Remix for the past few years already, the concept of `loader` shouldn't be something new to you. You'd export a server `loader` in your Route module, fetch some data and return it.
+
+```tsx
+export async function loader({ params }: Route.LoaderArgs) {
+  const post = await db.getPost(params.id);
+  return post;
+}
+
+export default function Post({ loaderData }: Route.ComponentProps) {
+  const { title, description } = loaderData;
+  return (
+    <article>
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </article>
+  )
+}
+```
+
+This approach will work for years to come but you might also consider a RSC approach where you'd fetch the data from your component directly.
+
+```tsx
+export default async function Post() {
+  const post = await db.getPost(params.id);
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.description}</p>
+    </article>
+  )
+}
+```
+
+To be entirely honest, I wouldn't be able to tell you what the actual difference is. It'll generate the same output, but it's obviously an entirely different way of dealing with fetching data.
+
+Since RSCs can be async, we can also stream (slower) RSCs to the client!
+
+```tsx
+// movies/page.tsx
+export default async function MoviePage() {
+  const lotr = movieApi.fetchTheLordOfTheRingsExtendedTrilogy();
+  return (
+    <>
+      <Suspense fallback={<ABeautifulLoader />}>
+        <MovieClientPage movie={lotr} />
+      </Suspense>
+    </>
+  )
+}
+
+// movies/page.client.tsx
+"use client"
+export function MovieClientPage({ movie }) {
+  const movieData = use(movie);
+  return <MovieDetail data={movieData} />;
+}
+```
+
+If you're curious about how the example above works. Go through the React [docs](https://react.dev/reference/react/use#streaming-data-from-server-to-client) :) !
+
 ### Performance
 
 ### TL;DR
