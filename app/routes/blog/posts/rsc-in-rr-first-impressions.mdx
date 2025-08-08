@@ -9,7 +9,7 @@ meta:
     content: RSCs in React Router
 ---
 
-A couple of weeks ago, the Remix team shared more [insights](https://remix.run/blog/react-router-and-react-server-components) into how React Server Components (RSCs) will work with React Router. And after a bit of patience, while everyone’s excited, we finally get to [experiment](https://reactrouter.com/changelog#v770) with RSCs in React Router.
+A couple of weeks ago, the Remix team shared more [insights](https://remix.run/blog/react-router-and-react-server-components) into how React Server Components (RSCs) will work with React Router. And after a bit of patience, we finally get to [experiment](https://reactrouter.com/changelog#v770) with RSCs in React Router (yes 🎉!).
 
 Assuming you're already somewhat familiar with RSCs and what they do, let’s ask the obvious question:
 
@@ -25,11 +25,11 @@ Assuming you're already somewhat familiar with RSCs and what they do, let’s as
 
 > ⚠️ **Note: Everything is still unstable!**
 
-We had to be a little patient… but following the RSC [docs](https://reactrouter.com/how-to/react-server-components), we get a glimpse of what the future _might_ look like. So I thought, why not give it a shot and try moving this website over to use RSCs?
+We had to be a little patient… but following the RSC [docs](https://reactrouter.com/how-to/react-server-components), we get a glimpse of what the future _might_ look like. So I thought, why not give it a shot and try moving this website over to a React Router with RSCs app?
 
 ### Initial impressions
 
-While scanning through the example [template](https://github.com/remix-run/react-router-templates/tree/main/unstable_rsc-vite), I noticed the following changes. Most of these APIs and implementation details will probably change again, but I reckon it's still valuable to see what's there right now.
+While scanning through the example [template](https://github.com/remix-run/react-router-templates/commit/2fb1d62477a1c3ffa36969419c4aa0921a0d6aa9), I noticed the following changes. Most of these APIs and implementation details will probably change again, but I reckon it's still valuable to see what's there right now.
 
 - React Router itself is no longer used as a Vite plugin. Instead, `@vitejs/plugin-rsc/plugin` is used with 3 entry files.
 - Instead of `entry.server.tsx` and `entry.client.tsx`, we now have:
@@ -46,7 +46,7 @@ I made a start [here](https://github.com/RaphaelBronsveld/raphaelbronsveld.com/c
 
 The migration went relatively smoothly. I updated the Vite config, added the new entry points, converted the homepage to an RSC route, and made sure everything rendered as expected.
 
-The only part I’m a bit unsure about is the `<ClientLayout>` component being used [here](https://github.com/remix-run/react-router-templates/blob/main/unstable_rsc-vite/src/routes/root/route.tsx#L9-L10).
+The only part I’m a bit unsure about is the entire `<ClientLayout>` component being used [here](https://github.com/remix-run/react-router-templates/commit/2fb1d62477a1c3ffa36969419c4aa0921a0d6aa9#diff-a1ea4cd0c7d6d0fa0875c00b1a6eca71c5861ab752acac644961d11a75301710R9-R10).
 
 Me, being slightly ignorant (and curious), moved everything to the main `root` route and only set up a `"use client"` component for the root error boundary. So far, it works, but I’m still trying to figure out whether that layout component is necessary or just redundant.
 
@@ -110,7 +110,7 @@ export function MovieClientPage({ movie }) {
 }
 ```
 
-If you're curious about how the example above works. Go through the React [docs](https://react.dev/reference/react/use#streaming-data-from-server-to-client) :) !
+If you're curious about how the example above works. Go to the React [docs](https://react.dev/reference/react/use#streaming-data-from-server-to-client) to read more about this :) !
 
 ### Performance
 
@@ -118,11 +118,11 @@ Just for fun I decided to run
 ```shell
 autocannon -c 50 -d 30 http://localhost:5173
 ```
-on the homepage with a RSC route and the Route module that's just returning the homepage (basically static html). Nothing too fancy, an absolutely worthless test but the funny thing was that the RSC route would always be able to process more requests.
+on the homepage with a RSC route and the OG Route module that's just returning the homepage (basically static html). Nothing too fancy, and probably an absolutely worthless test but the funny thing was that the RSC route would always be able to process more requests.
 
-Should we draw conclusions from this? Yes move everything over now!!1 (j/k)
+Should we draw conclusions from this? Yes move everything over now!! (just kidding)
 
-When implementing RSCs just be mindful of the potential performance issues _you_ can introduce. It's a powerful tool but since it's so different from what we used to.. here are some things you can keep in mind.
+When implementing RSCs just be mindful of the potential performance issues _you_ can introduce. It's a powerful tool but since it's so different from what we're used to.. here are some things you can keep in mind.
 
 - Use Suspense boundaries where needed, RSCs WILL "block" your navigation until the server component is done executing.
 - n+1 queries. You create a "list" component where each child RSC fetches data? Not good.
