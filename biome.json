@@ -6,5 +6,8 @@
 		"rules": {
 			"recommended": true
 		}
+	},
+	"files": {
+		"includes": ["**", "!app/styles/main.css"]
 	}
 }
