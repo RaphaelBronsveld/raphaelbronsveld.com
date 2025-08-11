@@ -15,7 +15,7 @@ export function Header({ children }: HeaderProps) {
 					<img
 						src="/favicon-me-v1.png"
 						className="w-8 h-8 group-hover:scale-110 transition-transform"
-						alt="Raphaël Bronsveld smiling, wearing a suit, with greenery in the background."
+						alt="Raphaël Bronsveld portrait"
 						fetchPriority="high"
 					/>
 				</Link>
