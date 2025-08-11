@@ -2,27 +2,17 @@ import { CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import { Card, CardContent } from "~/components/ui/card";
 import { type BlogPost, getPosts } from "~/features/mdx/posts";
-import type { Route } from "./+types/index";
 
-export const loader = async () => {
-	return { posts: getPosts() };
-};
-
-export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "Blog - Raphaël Bronsveld" },
-		{
-			name: "description",
-			content:
-				"Blog posts written by Raphaël Bronsveld. These posts will cover topics such as UX, web performance, CI/CD & DevOps.",
-		},
-	];
-};
-
-export default function Blog({ loaderData }: Route.ComponentProps) {
-	const { posts } = loaderData;
+export default function Blog() {
+	const posts = getPosts();
 	return (
-		<>
+		<div className="blog">
+			<title>Blog - Raphaël Bronsveld</title>
+			<meta
+				name="description"
+				content="Blog posts written by Raphaël Bronsveld. These posts will cover topics such as UX, web performance, CI/CD & DevOps."
+			/>
+
 			<h1 className="text-2xl mb-6">Blog.</h1>
 
 			<p className="mb-4">
@@ -34,11 +24,11 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 					<BlogCard post={post} key={post.slug} />
 				))}
 			</ul>
-		</>
+		</div>
 	);
 }
 
-export function BlogCard({ post }: { post: BlogPost }) {
+function BlogCard({ post }: { post: BlogPost }) {
 	return (
 		<Card className="overflow-hidden">
 			<Link className="no-underline" to={`/blog/${post.slug}`} viewTransition>

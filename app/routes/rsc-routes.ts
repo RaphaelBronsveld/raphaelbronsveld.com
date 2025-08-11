@@ -12,6 +12,17 @@ export function routes() {
 					index: true,
 					lazy: () => import("./index"),
 				},
+				{
+					id: "blog",
+					path: "/blog",
+					index: true,
+					lazy: () => import("./blog/index"),
+				},
+				{
+					id: "blog-post",
+					path: "/blog/:slug",
+					lazy: () => import("./blog/post"),
+				},
 			],
 		},
 	] satisfies RSCRouteConfig;
