@@ -28,6 +28,6 @@ Make sure your font file actually allows it to be used as a cached asset by chec
 
 ### Check response headers first 🔍
 
-Fonts need to be cacheable and "CORS-friendly" to allow reuse. Your `Cache-Control` header should be set-up correctly. Something like `public, max-age=31536000, immutable` is something you could use.
+Fonts need to be cacheable and "CORS-friendly" to allow reuse. Your `Cache-Control` header should be set-up correctly. An example `Cache-Control` header would contain something like `public, max-age=31536000, immutable`. This just instructs your browser to keep the font asset in browser cache for 1 year.
 
 Now your font should only load once. Please refresh your page 20+ times just to be sure. 🙃
