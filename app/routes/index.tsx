@@ -16,7 +16,7 @@ export default function Index() {
 					take things next.
 				</p>
 				<p>
-					I like solving tricky & complicated problems while jumping straight into the source code. I'm always tying to learn more and finding ways to make a difference. 
+					I like solving tricky & complicated problems while jumping straight into the source code. I'm always trying to learn more and finding ways to make a difference. 
 				</p>
 				<p>When I'm not coding I still like to write about my experiences and figure it out together. I'll mostly write about web focused topics such as performance, accessibility, deep-dives into specifics & more!</p>
 				<Link to={href("/blog")} className="flex gap-1 group" viewTransition>
