@@ -1,7 +1,9 @@
 import { CalendarIcon } from "lucide-react";
+import type * as React from "react";
 import { Link } from "react-router";
 import { Card, CardContent } from "~/components/ui/card";
 import { type BlogPost, getPosts } from "~/features/mdx/posts";
+import { cn } from "~/lib/utils";
 import type { Route } from "./+types/index";
 
 export const loader = async () => {
@@ -38,9 +40,13 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 	);
 }
 
-export function BlogCard({ post }: { post: BlogPost }) {
+type BlogCardProps = {
+	post: BlogPost;
+} & React.ComponentProps<"div">;
+
+export function BlogCard({ post, className, ...props }: BlogCardProps) {
 	return (
-		<Card className="overflow-hidden">
+		<Card className={cn("overflow-hidden", className)} {...props}>
 			<Link className="no-underline" to={`/blog/${post.slug}`} viewTransition>
 				<article>
 					<CardContent className="p-4 md:p-6">

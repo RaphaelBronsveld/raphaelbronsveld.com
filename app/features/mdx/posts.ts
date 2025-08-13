@@ -25,13 +25,13 @@ export const loadPost = (slug: string) => {
 	return entry[1] as { default: React.ComponentType; frontmatter: BlogPost };
 };
 
-export const getPosts = (): BlogPost[] => {
+export const getPosts = (limit?: number): BlogPost[] => {
 	const posts = Object.entries(modules).map(([file, post]) => {
 		const id = `${file.replace("../../routes/blog/posts/", "").replace(/\.mdx$/, "")}`;
 		return { ...post.frontmatter, slug: id };
 	});
 
-	return sortBy<BlogPost>(
+	const sortedPosts = sortBy<BlogPost>(
 		posts,
 		(post) => {
 			const [d, m, y] = post.date.split("-").map(Number);
@@ -39,6 +39,8 @@ export const getPosts = (): BlogPost[] => {
 		},
 		"desc",
 	);
+
+	return limit ? sortedPosts.slice(0, limit) : sortedPosts;
 };
 
 function sortBy<T>(
