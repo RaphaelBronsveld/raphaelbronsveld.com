@@ -14,7 +14,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     <language>en-us</language>
     <ttl>40</ttl>
      <image>
-	  <url>${host}/og?title=Raphaël%20Bronsveld</url>
+	  <url>${host}/og?title=${encodeURIComponent("Raphaël Bronsveld")}</url>
 	  <title>Raphaël Bronsveld</title>
 	  <link>${host}</link>
 	</image>
