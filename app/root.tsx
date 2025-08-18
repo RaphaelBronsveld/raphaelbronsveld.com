@@ -38,6 +38,12 @@ export const links: LinksFunction = () => {
 			type: "image/png",
 			sizes: "48x48",
 		},
+		{
+			rel: "alternate",
+			type: "application/rss+xml",
+			title: "Raphaël's Blog RSS Feed",
+			href: "/rss",
+		},
 	];
 };
 

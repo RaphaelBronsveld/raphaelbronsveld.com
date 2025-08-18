@@ -13,17 +13,17 @@ export const loader = async () => {
 	];
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${routes
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+		${routes
 			.map(
 				({ slug }) => `
-      <url>
-        <loc>https://raphaelbronsveld.com${slug}</loc>
-        <priority>1</priority>
-      </url>`,
+		  <url>
+			<loc>https://raphaelbronsveld.com${slug}</loc>
+			<priority>1</priority>
+		  </url>`,
 			)
 			.join("")}
-  </urlset>`;
+		</urlset>`;
 
 	return new Response(sitemap, {
 		headers: {

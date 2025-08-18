@@ -22,7 +22,8 @@ export default function Index() {
 				<p>
 					When I'm not coding I still like to write about my experiences and
 					figure it out together. I'll mostly write about web focused topics
-					such as performance, accessibility, deep-dives into specifics & more!
+					such as React development, performance, accessibility, deep-dives into
+					specifics & more!
 				</p>
 
 				<PostCarousel className="pt-3" heading="Latest blog posts." />
