@@ -16,7 +16,7 @@ function PostCarousel({
 
 	return (
 		<div className={className}>
-			<div className="flex justify-between items-center pb-4">
+			<div className="flex justify-between pb-4">
 				<h2 className="text-2xl">{heading}</h2>
 				<Link
 					to={href("/blog")}
@@ -31,7 +31,7 @@ function PostCarousel({
 			<div className="flex gap-2 snap-x snap-mandatory overflow-x-auto no-scrollbar">
 				{latestPosts.map((post) => (
 					<BlogCard
-						className="w-80 flex-shrink-0 snap-start"
+						className="w-60 sm:w-80 flex-shrink-0 snap-start"
 						post={post}
 						key={post.slug}
 					/>

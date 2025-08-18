@@ -4,6 +4,8 @@ import type { BlogPosting, WithContext } from "schema-dts";
 import { type BlogPost, getOgTitle, loadPost } from "~/features/mdx/posts";
 import type { Route } from "./+types/post";
 
+// TODO: cleanup loadpost / getogtitle / frontmatter/blogposttype / service class?
+
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const { origin } = new URL(request.url);
 	const { slug } = params;

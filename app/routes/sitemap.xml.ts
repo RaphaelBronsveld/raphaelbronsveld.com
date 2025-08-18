@@ -1,5 +1,7 @@
 import { getPosts } from "~/features/mdx/posts";
 
+// TODO: pls proper typing here with something that can do sitemaps.
+
 export const loader = async () => {
 	const posts = getPosts();
 

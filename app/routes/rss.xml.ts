@@ -1,6 +1,8 @@
 import { getOgTitle, getPosts } from "~/features/mdx/posts";
 import type { Route } from "./+types/rss.xml";
 
+// TODO: pls proper typing here with `feed`
+
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const host = new URL(request.url).origin;
 	const posts = getPosts();
@@ -25,19 +27,19 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 				const description = `${post.description.substring(0, 200)}`;
 				const image = `${host}/og?title=${getOgTitle(post)}`;
 				return `
-    <item>
-    	<author>diners.dell-9e@icloud.com (Raphaël Bronsveld)</author>
-		<title><![CDATA[${post.title}]]></title>
-		<description><![CDATA[${description}]]></description>
-		<link>${host}/blog/${post.slug}</link>
-		<guid>${host}/blog/${post.slug}</guid>
-		<pubDate>${new Date(`${y}-${m}-${d}`).toUTCString()}</pubDate>
-		<enclosure url="${image}" type="image/png" length="51200"/>
-    </item>`;
+					<item>
+						<author>diners.dell-9e@icloud.com (Raphaël Bronsveld)</author>
+						<title><![CDATA[${post.title}]]></title>
+						<description><![CDATA[${description}]]></description>
+						<link><![CDATA[${host}/blog/${post.slug}?utm_source=rss&utm_medium=feed]]></link>
+						<guid>${host}/blog/${post.slug}</guid>
+						<pubDate>${new Date(`${y}-${m}-${d}`).toUTCString()}</pubDate>
+						<enclosure url="${image}" type="image/png" length="51200"/>
+					</item>`;
 			})
 			.join("")}
-  </channel>
-</rss>`;
+				  </channel>
+				</rss>`;
 
 	return new Response(rss, {
 		headers: {

@@ -1,22 +1,33 @@
+import { Rss } from "lucide-react";
 import { Link } from "react-router";
 import { Crescent } from "~/components/SpaceComponents";
 
 export default function Footer() {
+	// TODO: pls proper typing here.
 	const socialMediaLinks = [
 		{
 			label: "Github",
 			component: Github,
 			href: "https://github.com/RaphaelBronsveld",
+			rel: "me",
 		},
 		{
 			label: "BlueSky",
 			component: BlueSky,
 			href: "https://bsky.app/profile/raphaelbronsveld.com",
+			rel: "me",
 		},
 		{
 			label: "LinkedIn",
 			component: LinkedIn,
 			href: "https://www.linkedin.com/in/raphaelbronsveld/",
+			rel: "me",
+		},
+		{
+			label: "Subscribe to my RSS Feed",
+			component: Rss,
+			href: "https://raphaelbronsveld.com/rss",
+			target: "_blank",
 		},
 	];
 	return (
@@ -26,10 +37,11 @@ export default function Footer() {
 					{socialMediaLinks.map((link, index) => (
 						<Link
 							to={link.href}
+							className="p-4 dark:bg-stone-900 hover:scale-110 transition-transform"
+							target={link.target}
+							rel={link.rel}
 							// biome-ignore lint/suspicious/noArrayIndexKey: It's just a footer.
 							key={index}
-							rel="me"
-							className="p-4 dark:bg-stone-900 hover:scale-110 transition-transform"
 						>
 							<span className="sr-only">{link.label}</span>
 							<link.component />
