@@ -25,6 +25,15 @@ export const loadPost = (slug: string) => {
 	return entry[1] as { default: React.ComponentType; frontmatter: BlogPost };
 };
 
+export const getOgTitle = (post: BlogPost) => {
+	return encodeURIComponent(
+		post.meta?.find(
+			(m): m is { property: string; content: string } =>
+				"property" in m && m.property === "og:title",
+		)?.content ?? post.title,
+	);
+};
+
 export const getPosts = (limit?: number): BlogPost[] => {
 	const posts = Object.entries(modules).map(([file, post]) => {
 		const id = `${file.replace("../../routes/blog/posts/", "").replace(/\.mdx$/, "")}`;

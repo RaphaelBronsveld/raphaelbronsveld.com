@@ -1,7 +1,7 @@
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { BlogPosting, WithContext } from "schema-dts";
-import { type BlogPost, loadPost } from "~/features/mdx/posts";
+import { type BlogPost, getOgTitle, loadPost } from "~/features/mdx/posts";
 import type { Route } from "./+types/post";
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
@@ -10,13 +10,7 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 
 	try {
 		const { frontmatter } = loadPost(slug);
-
-		const ogTitle = encodeURIComponent(
-			frontmatter.meta?.find(
-				(m): m is { property: string; content: string } =>
-					"property" in m && m.property === "og:title",
-			)?.content ?? frontmatter.title,
-		);
+		const ogTitle = getOgTitle(frontmatter);
 
 		const og = {
 			url: `${origin}/blog/${slug}`,

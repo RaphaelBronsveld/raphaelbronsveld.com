@@ -1,4 +1,4 @@
-import { getPosts } from "~/features/mdx/posts";
+import { getOgTitle, getPosts } from "~/features/mdx/posts";
 import type { Route } from "./+types/rss.xml";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
@@ -13,19 +13,26 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     <link>${host}</link>
     <language>en-us</language>
     <ttl>40</ttl>
+     <image>
+	  <url>${host}/og?title=Raphaël%20Bronsveld</url>
+	  <title>Raphaël Bronsveld</title>
+	  <link>${host}</link>
+	</image>
     <atom:link href="${host}/rss" rel="self" type="application/rss+xml" />
     ${posts
 			.map((post) => {
 				const [d, m, y] = post.date.split("-");
 				const description = `${post.description.substring(0, 200)}`;
-
+				const image = `${host}/og?title=${getOgTitle(post)}`;
 				return `
     <item>
-      <title><![CDATA[${post.title}]]></title>
-      <description><![CDATA[${description}]]></description>
-      <link>${host}/blog/${post.slug}</link>
-      <guid>${host}/blog/${post.slug}</guid>
-      <pubDate>${new Date(`${y}-${m}-${d}`).toUTCString()}</pubDate>
+    	<author>diners.dell-9e@icloud.com (Raphaël Bronsveld)</author>
+		<title><![CDATA[${post.title}]]></title>
+		<description><![CDATA[${description}]]></description>
+		<link>${host}/blog/${post.slug}</link>
+		<guid>${host}/blog/${post.slug}</guid>
+		<pubDate>${new Date(`${y}-${m}-${d}`).toUTCString()}</pubDate>
+		<enclosure url="${image}" type="image/png" length="51200"/>
     </item>`;
 			})
 			.join("")}
