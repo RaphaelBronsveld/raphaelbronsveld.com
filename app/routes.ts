@@ -10,7 +10,6 @@ export const routes: RouteConfig = [
 
 	route("sitemap.xml", "./routes/sitemap.xml.ts"),
 	route("rss", "./routes/rss.xml.ts"),
-	route("og", "./routes/og.tsx"),
 
 	route("*", "./routes/404.tsx"),
 ];

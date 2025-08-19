@@ -1,27 +1,29 @@
-import { FontaineTransform } from "fontaine";
+import { cloudflare } from "@cloudflare/vite-plugin";
 import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { FontaineTransform } from "fontaine";
+import rehypePrettyCode from "rehype-pretty-code";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import rehypePrettyCode from "rehype-pretty-code";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import babel from "vite-plugin-babel";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	plugins: [
+		cloudflare({ viteEnvironment: { name: "ssr" } }),
 		FontaineTransform.vite({
 			fallbacks: ["Arial"],
 			resolvePath: (id) => new URL(`./public${id}`, import.meta.url),
 		}),
+		tailwindcss(),
 		mdx({
 			remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
 			rehypePlugins: [rehypePrettyCode],
 		}),
 		reactRouter(),
 		tsconfigPaths(),
-		tailwindcss(),
 		babel({
 			filter: /\.[jt]sx?$/,
 			babelConfig: {

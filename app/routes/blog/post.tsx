@@ -1,10 +1,10 @@
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { BlogPosting, WithContext } from "schema-dts";
-import { type BlogPost, getOgTitle, loadPost } from "~/features/mdx/posts";
+import { type BlogPost, loadPost } from "~/features/mdx/posts";
 import type { Route } from "./+types/post";
 
-// TODO: cleanup loadpost / getogtitle / frontmatter/blogposttype / service class?
+// TODO: cleanup OG / loadpost / frontmatter/blogposttype / service class?
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const { origin } = new URL(request.url);
@@ -12,11 +12,10 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 
 	try {
 		const { frontmatter } = loadPost(slug);
-		const ogTitle = getOgTitle(frontmatter);
 
 		const og = {
 			url: `${origin}/blog/${slug}`,
-			image: `${origin}/og?title=${ogTitle}`,
+			image: `${origin}/og/${slug}.png`,
 		};
 
 		return { slug, og, frontmatter };

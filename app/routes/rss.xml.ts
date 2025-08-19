@@ -1,5 +1,5 @@
 import { Feed } from "feed";
-import { getOgTitle, getPosts } from "~/features/mdx/posts";
+import { getPosts } from "~/features/mdx/posts";
 import type { Route } from "./+types/rss.xml";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
@@ -19,7 +19,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 	for (const post of posts) {
 		const [d, m, y] = post.date.split("-");
-		const image = `${host}/og?title=${getOgTitle(post)}`;
+		const image = `${host}/og/${post.slug}.png`;
 
 		feed.addItem({
 			author: [
