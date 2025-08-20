@@ -43,10 +43,10 @@ varnishstat -f "SMA.*.g_*" -1
 
 Keep an eye on `g_bytes` & `g_space`. If `g_space` is too low it could be an indication that objects are being evicted. You can check `n_lru_nuked` with `varnishstat` to confirm objects are being evicted due to memory pressure. Time to allocate more space for Varnish or improve your caching strategy.
 
-### Normalizing requests
+## Normalizing requests
 Different url's for the same content? Bye-bye hit rate. Normalizing requests is the process of transforming requests into a consistent format before our cache rules are applied. Small differences in requests can create separate cache entries (for the same content), which is something we'd like to avoid as much as possible. Here's something we can do.
 
-#### Remove query string params.
+### Remove query string params.
 This only removes them _internally_. Analytics & tracking still work (yay?).
 
 ```bash
@@ -59,7 +59,7 @@ sub vcl_recv {
 }
 ```
 
-#### Trailing slashes
+### Trailing slashes
 Keep it consistent. Do I need to add more context here? 🙊
 
 ### Cookies
@@ -84,7 +84,7 @@ sub vcl_backend_response {
 }
 ```
 
-### Debugging (client side)
+## Debugging (client side)
 Sometimes you just want to check quickly: was it a hit or miss?
 
 ```vcl

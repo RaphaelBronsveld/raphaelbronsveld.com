@@ -25,7 +25,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 	const { posts } = loaderData;
 	return (
 		<>
-			<h1 className="text-2xl mb-6">Blog.</h1>
+			<h1 className="text-2xl mb-6 text-accent">Blog.</h1>
 
 			<p className="mb-4">
 				A collection of blog posts covering topics such as sysops/devops,

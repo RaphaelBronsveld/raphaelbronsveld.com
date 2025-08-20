@@ -39,13 +39,11 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 			/>
 			<article>
 				<h1>{frontmatter.title}</h1>
-				<span className="flex gap-1 text-xs items-center">
+				<span className="flex gap-1 text-xs items-center mb-6">
 					<CalendarIcon className="w-4" />
 					<span>{frontmatter.date}</span>
 				</span>
-				<div className="md">
-					<Component.default />
-				</div>
+				<Component.default />
 				<Link to="/blog" className="group no-underline flex gap-2">
 					<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
 					Go back to blog

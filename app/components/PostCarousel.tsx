@@ -17,7 +17,7 @@ function PostCarousel({
 	return (
 		<div className={className}>
 			<div className="flex justify-between items-center pb-4">
-				<h2 className="text-2xl">{heading}</h2>
+				<h2 className="text-2xl text-accent">{heading}</h2>
 				<Link
 					to={href("/blog")}
 					className="flex gap-1 group hover:text-underline"

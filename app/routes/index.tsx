@@ -3,7 +3,7 @@ import { PostCarousel } from "~/components/PostCarousel";
 export default function Index() {
 	return (
 		<div className="flex flex-col">
-			<h2 className="text-2xl mb-4">Welcome.</h2>
+			<h2 className="text-2xl mb-4 text-accent">Welcome.</h2>
 			<div className="space-y-3 text-balance">
 				<p>
 					I'm an all-around developer, performance nerd🤓, and I’m passionate
