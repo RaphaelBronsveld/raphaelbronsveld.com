@@ -14,7 +14,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 		id: host,
 		copyright: "All rights reserved..?",
 		language: "en-US",
-		image: `${host}/og?title=${encodeURIComponent("Raphaël Bronsveld")}`,
+		image: `${host}/its-ah-me.jpg`,
 		ttl: 60,
 	});
 
