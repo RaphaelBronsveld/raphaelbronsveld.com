@@ -15,6 +15,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 		copyright: "All rights reserved..?",
 		language: "en-US",
 		image: `${host}/og?title=${encodeURIComponent("Raphaël Bronsveld")}`,
+		ttl: 60,
 	});
 
 	for (const post of posts) {
