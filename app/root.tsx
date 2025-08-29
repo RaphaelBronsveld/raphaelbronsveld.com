@@ -58,9 +58,9 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
+export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const pathname = new URL(request.url).pathname;
-	return { pathname, trackingId: process.env.GA_TRACKING_ID };
+	return { pathname, trackingId: context.cloudflare.env.GA_TRACKING_ID };
 };
 
 export default function App({ loaderData }: Route.ComponentProps) {
