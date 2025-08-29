@@ -9,12 +9,12 @@ Portfolio / Blog built with React Router v7 & Biome & Tailwind V4.
 
 ## Development
 
-Install dependencies with `npm install` 
+Install dependencies with `pnpm install` 
 
 Run the dev server:
 
 ```shellscript
-npm run dev
+pnpm run dev
 ```
 
 👋🏼👋🏼

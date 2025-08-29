@@ -1,4 +1,5 @@
 import type { MetaDescriptor } from "react-router";
+import { sortBy } from "~/lib/utils";
 
 export type BlogPost = {
 	slug: string;
@@ -42,21 +43,3 @@ export const getPosts = (limit?: number): BlogPost[] => {
 
 	return limit ? sortedPosts.slice(0, limit) : sortedPosts;
 };
-
-function sortBy<T>(
-	arr: T[],
-	// biome-ignore lint/suspicious/noExplicitAny: <We can sort on any...thing>
-	key: (item: T) => any,
-	dir: "asc" | "desc" = "asc",
-) {
-	return arr.sort((a, b) => {
-		const res = compare(key(a), key(b));
-		return dir === "asc" ? res : -res;
-	});
-}
-
-function compare<T>(a: T, b: T): number {
-	if (a < b) return -1;
-	if (a > b) return 1;
-	return 0;
-}
