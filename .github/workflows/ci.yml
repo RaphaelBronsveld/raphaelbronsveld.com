@@ -33,8 +33,8 @@ jobs:
         run: biome ci . --reporter=github
 
   typecheck:
-    needs: setup
     name: 🔎 Type check
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,8 +47,8 @@ jobs:
       - run: pnpm run typecheck
 
   test:
-    needs: setup
     name: ⚡ Tests
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -59,3 +59,23 @@ jobs:
           cache: "pnpm"
       - run: pnpm install --prefer-offline --frozen-lockfile
       - run: pnpm run test
+
+  deploy:
+    name: 📦 Deploy
+    needs: [lint, typecheck, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - run: pnpm install --prefer-offline --frozen-lockfile
+      - run: pnpm run build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+
