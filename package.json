@@ -10,9 +10,9 @@
 		"cf-typegen": "wrangler types",
 		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b",
 		"postinstall": "npm run cf-typegen",
-		"check": "biome check --write ./app",
-		"ci": "biome ci ./app",
-		"format": "biome format ./app"
+		"check": "biome check --write .",
+		"ci": "biome ci .",
+		"format": "biome format ."
 	},
 	"dependencies": {
 		"@mdx-js/rollup": "^3.1.0",
@@ -53,6 +53,7 @@
 		"wrangler": "^4.31.0"
 	},
 	"engines": {
-		"node": ">=22.x.x"
+		"node": ">=24.7.0",
+		"pnpm": ">=10.12.4"
 	}
 }
