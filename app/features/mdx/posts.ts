@@ -5,6 +5,7 @@ export type BlogPost = {
 	slug: string;
 	title: string;
 	description: string;
+	tag: string;
 	date: string;
 	meta: MetaDescriptor[];
 };
