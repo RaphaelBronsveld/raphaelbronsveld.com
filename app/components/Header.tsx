@@ -10,6 +10,7 @@ export function Header({ children }: HeaderProps) {
 					to="/"
 					viewTransition
 					className="group flex items-center justify-between"
+					prefetch="render"
 				>
 					{children}
 					<img

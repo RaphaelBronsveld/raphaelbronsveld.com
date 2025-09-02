@@ -21,6 +21,7 @@ function PostCarousel({
 				<Link
 					to={href("/blog")}
 					className="flex gap-1 group hover:text-underline"
+					prefetch="viewport"
 					viewTransition
 				>
 					View all posts

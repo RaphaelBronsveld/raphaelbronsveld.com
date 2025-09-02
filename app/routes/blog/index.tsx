@@ -47,7 +47,12 @@ type BlogCardProps = {
 export function BlogCard({ post, className, ...props }: BlogCardProps) {
 	return (
 		<Card className={cn("overflow-hidden", className)} {...props}>
-			<Link className="no-underline" to={`/blog/${post.slug}`} viewTransition>
+			<Link
+				className="no-underline"
+				to={`/blog/${post.slug}`}
+				prefetch="viewport"
+				viewTransition
+			>
 				<article>
 					<CardContent className="p-4 md:p-6">
 						<div className="flex flex-col gap-1 pb-4">

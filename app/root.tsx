@@ -22,6 +22,12 @@ export const links: LinksFunction = () => {
 	return [
 		{
 			rel: "preload",
+			href: "/fonts/inter.woff2",
+			as: "font",
+			crossOrigin: "anonymous",
+		},
+		{
+			rel: "preload",
 			href: "/fonts/lexend.woff2",
 			as: "font",
 			crossOrigin: "anonymous",
