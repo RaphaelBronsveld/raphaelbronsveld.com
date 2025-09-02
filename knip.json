@@ -1,0 +1,20 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"remix": true,
+	"paths": {
+		"~/*": ["./app/*"]
+	},
+	"ignoreDependencies": [
+		"@babel/preset-typescript",
+		"babel-plugin-react-compiler",
+		"tailwindcss"
+	],
+	"ignore": [
+		"./+types/*",
+		"env.d.ts",
+		"worker-configuration.d.ts",
+		"workers/*",
+		"app/routes/blog/posts/*.mdx"
+	],
+	"ignoreUnresolved": ["^\\.\\/\\+types\\/.*"]
+}

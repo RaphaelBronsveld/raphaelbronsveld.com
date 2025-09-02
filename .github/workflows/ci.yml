@@ -46,6 +46,20 @@ jobs:
       - run: pnpm install --prefer-offline --frozen-lockfile
       - run: pnpm run typecheck
 
+  knip:
+    name: ✂️ Knip - Check unused code
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+      - run: pnpm install --prefer-offline --frozen-lockfile
+      - run: pnpm run knip
+
   test:
     name: ⚡ Tests
     needs: setup
