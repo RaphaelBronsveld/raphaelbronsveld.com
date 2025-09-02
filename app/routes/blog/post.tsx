@@ -1,6 +1,7 @@
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { BlogPosting, WithContext } from "schema-dts";
+import { Tag } from "~/components/ui/Tag";
 import { type BlogPost, loadPost } from "~/features/mdx/posts";
 import type { Route } from "./+types/post";
 
@@ -38,11 +39,14 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 				}}
 			/>
 			<article>
-				<h1>{frontmatter.title}</h1>
-				<span className="flex gap-1 text-xs items-center mb-6">
-					<CalendarIcon className="w-4" />
-					<span>{frontmatter.date}</span>
-				</span>
+				<h1 className="mb-2">{frontmatter.title}</h1>
+				<div className="flex gap-2 mb-6">
+					<Tag>{frontmatter.tag}</Tag>
+					<span className="flex items-center gap-1 text-xs">
+						<CalendarIcon className="w-4" />
+						<span>{frontmatter.date}</span>
+					</span>
+				</div>
 				<Component.default />
 				<Link to="/blog" className="group no-underline flex gap-2">
 					<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />

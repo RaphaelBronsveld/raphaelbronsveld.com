@@ -1,7 +1,7 @@
 import { CalendarIcon } from "lucide-react";
 import type * as React from "react";
 import { Link } from "react-router";
-import { Card, CardContent } from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/Card";
 import { type BlogPost, getPosts } from "~/features/mdx/posts";
 import { cn } from "~/lib/utils";
 import type { Route } from "./+types/index";
