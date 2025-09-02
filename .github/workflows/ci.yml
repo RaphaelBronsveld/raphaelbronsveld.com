@@ -76,7 +76,7 @@ jobs:
 
   deploy:
     name: 📦 Deploy
-    needs: [lint, typecheck, test]
+    needs: [lint, typecheck, knip, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
