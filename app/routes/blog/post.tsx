@@ -1,11 +1,10 @@
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { BlogPosting, WithContext } from "schema-dts";
+import { PostCarousel } from "~/components/PostCarousel";
 import { Tag } from "~/components/ui/Tag";
-import { type BlogPost, loadPost } from "~/features/mdx/posts";
+import { type BlogPost, getRelatedPosts, loadPost } from "~/services/posts";
 import type { Route } from "./+types/post";
-
-// TODO: cleanup OG / loadpost / frontmatter/blogposttype / service class?
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const { origin } = new URL(request.url);
@@ -29,6 +28,8 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 	const { slug, frontmatter, og } = loaderData;
 	const Component = loadPost(slug);
 
+	const relatedPosts = getRelatedPosts(Component.frontmatter);
+
 	return (
 		<>
 			<script
@@ -48,10 +49,14 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 					</span>
 				</div>
 				<Component.default />
-				<Link to="/blog" className="group no-underline flex gap-2">
-					<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
-					Go back to blog
-				</Link>
+				{relatedPosts.length > 0 ? (
+					<PostCarousel posts={relatedPosts} heading="You might also like." />
+				) : (
+					<Link to="/blog" className="group no-underline flex gap-2">
+						<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
+						Go back to blog
+					</Link>
+				)}
 			</article>
 		</>
 	);

@@ -1,6 +1,9 @@
 import { PostCarousel } from "~/components/PostCarousel";
+import { getLatestPosts } from "~/services/posts";
 
 export default function Index() {
+	const latestPosts = getLatestPosts();
+
 	return (
 		<div className="flex flex-col">
 			<h2 className="text-2xl mb-4 text-accent">Welcome.</h2>
@@ -26,7 +29,11 @@ export default function Index() {
 					specifics & more!
 				</p>
 
-				<PostCarousel className="pt-3" heading="Latest blog posts." />
+				<PostCarousel
+					posts={latestPosts}
+					className="pt-3"
+					heading="Latest blog posts."
+				/>
 			</div>
 		</div>
 	);

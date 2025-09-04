@@ -1,5 +1,5 @@
 import { Feed } from "feed";
-import { getPosts } from "~/features/mdx/posts";
+import { getPosts } from "~/services/posts";
 import type { Route } from "./+types/rss.xml";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {

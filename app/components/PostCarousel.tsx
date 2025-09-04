@@ -1,18 +1,19 @@
 import { ArrowRight } from "lucide-react";
 import { href, Link } from "react-router";
-import { getPosts } from "~/features/mdx/posts";
 import { BlogCard } from "~/routes/blog";
+import type { BlogPost } from "~/services/posts";
 
 function PostCarousel({
+	posts,
 	heading,
-	limit,
 	className,
 }: {
+	posts: BlogPost[];
 	heading: string;
 	limit?: number;
 	className?: string;
 }) {
-	const latestPosts = getPosts(limit);
+	if (!posts.length) return null;
 
 	return (
 		<div className={className}>
@@ -30,7 +31,7 @@ function PostCarousel({
 			</div>
 
 			<div className="flex gap-2 snap-x snap-mandatory overflow-x-auto no-scrollbar">
-				{latestPosts.map((post) => (
+				{posts.map((post) => (
 					<BlogCard
 						className="w-60 sm:w-80 flex-shrink-0 snap-start"
 						post={post}

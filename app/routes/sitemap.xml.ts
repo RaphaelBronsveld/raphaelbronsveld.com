@@ -1,4 +1,4 @@
-import { getPosts } from "~/features/mdx/posts";
+import { getPosts } from "~/services/posts";
 
 // TODO: pls proper typing here with something that can do sitemaps.
 
