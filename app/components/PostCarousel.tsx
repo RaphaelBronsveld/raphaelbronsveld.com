@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { href, Link } from "react-router";
+import { cn } from "~/lib/utils";
 import { BlogCard } from "~/routes/blog";
 import type { BlogPost } from "~/services/posts";
 
@@ -16,8 +17,8 @@ function PostCarousel({
 	if (!posts.length) return null;
 
 	return (
-		<div className={className}>
-			<div className="flex justify-between items-center pb-4">
+		<>
+			<div className={cn("flex justify-between items-center", className)}>
 				<h2 className="text-2xl text-accent">{heading}</h2>
 				<Link
 					to={href("/blog")}
@@ -39,7 +40,7 @@ function PostCarousel({
 					/>
 				))}
 			</div>
-		</div>
+		</>
 	);
 }
 

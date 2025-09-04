@@ -31,7 +31,7 @@ export default function Index() {
 
 				<PostCarousel
 					posts={latestPosts}
-					className="pt-3"
+					className="pb-2 pt-3"
 					heading="Latest blog posts."
 				/>
 			</div>
