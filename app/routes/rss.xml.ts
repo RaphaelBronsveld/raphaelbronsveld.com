@@ -32,6 +32,11 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 			description: `${post.description.substring(0, 200)}`,
 			link: `${host}/blog/${post.slug}?utm_source=rss&utm_medium=feed`,
 			date: new Date(`${y}-${m}-${d}`),
+			category: [
+				{
+					name: post.tag,
+				},
+			],
 			image: {
 				url: image,
 				type: "image/png",
