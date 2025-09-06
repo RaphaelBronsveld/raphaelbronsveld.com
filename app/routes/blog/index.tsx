@@ -2,6 +2,7 @@ import { CalendarIcon } from "lucide-react";
 import type * as React from "react";
 import { Link } from "react-router";
 import { Card, CardContent } from "~/components/ui/Card";
+import { Tag } from "~/components/ui/Tag";
 import { cn } from "~/lib/utils";
 import { type BlogPost, getPosts } from "~/services/posts";
 import type { Route } from "./+types/index";
@@ -58,7 +59,8 @@ export function BlogCard({ post, className, ...props }: BlogCardProps) {
 						<div className="flex flex-col gap-1 pb-4">
 							<h2 className="text-lg m-0 line-clamp-2">{post.title}</h2>
 							<div className="flex items-center gap-2">
-								<div className="flex items-center text-xs text-muted-foreground">
+								<Tag variant="small">{post.tag}</Tag>
+								<div className="flex text-muted-foreground items-center text-xs">
 									<CalendarIcon className="mr-1 h-3 w-3" />
 									{post.date}
 								</div>
