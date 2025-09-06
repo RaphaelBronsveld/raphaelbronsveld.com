@@ -66,7 +66,7 @@ Keep it consistent. Do I need to add more context here? 🙊
 ### Cookies
 Varnish by default will not cache any object from the backend with a `Set-Cookie` header. If you're sure your page doesn't need cookies, strip them!
 
-```vcl
+```bash
 sub vcl_recv {
   unset req.http.Cookie; # only do this when you're absolutely sure what it is actually doing ;)
 }
@@ -79,7 +79,7 @@ The `Cache-Control` header instructs Varnish, via the `max-age` directive, how l
 ### Serve stale content
 Varnish allows you to serve _stale_ content while revalidating the content in the background asynchronously. This increases (perceived) performance & helps with traffic spikes.
 
-```vcl
+```bash
 sub vcl_backend_response {
   set beresp.grace = 5m;
 }
@@ -88,7 +88,7 @@ sub vcl_backend_response {
 ## Debugging (client side)
 Sometimes you just want to check quickly: was it a hit or miss?
 
-```vcl
+```bash
 sub vcl_deliver {
   if (obj.hits > 0) {
     set resp.http.X-Cache = "HIT";
