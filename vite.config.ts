@@ -16,6 +16,7 @@ export default defineConfig({
 		mdx({
 			remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
 			rehypePlugins: [rehypePrettyCode],
+			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
 		tsconfigPaths(),

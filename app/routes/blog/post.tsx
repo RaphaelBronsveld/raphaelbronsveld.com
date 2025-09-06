@@ -1,6 +1,8 @@
+import { MDXProvider } from "@mdx-js/react";
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { BlogPosting, WithContext } from "schema-dts";
+import { mdxComponents } from "~/components/MdxComponents";
 import { PostCarousel } from "~/components/PostCarousel";
 import { Tag } from "~/components/ui/Tag";
 import { type BlogPost, getRelatedPosts, loadPost } from "~/services/posts";
@@ -48,7 +50,9 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 						<span>{frontmatter.date}</span>
 					</span>
 				</div>
-				<Component.default />
+				<MDXProvider components={mdxComponents}>
+					<Component.default />
+				</MDXProvider>
 				{relatedPosts.length > 0 ? (
 					<PostCarousel posts={relatedPosts} heading="You might also like." />
 				) : (
