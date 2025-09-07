@@ -53,14 +53,14 @@ export default function Post({ loaderData }: Route.ComponentProps) {
 				<MDXProvider components={mdxComponents}>
 					<Component.default />
 				</MDXProvider>
-				{relatedPosts.length > 0 ? (
+				{relatedPosts.length > 0 && (
 					<PostCarousel posts={relatedPosts} heading="You might also like." />
-				) : (
-					<Link to="/blog" className="group no-underline flex gap-2">
-						<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
-						Go back to blog
-					</Link>
 				)}
+
+				<Link to="/blog" className="mt-4 group no-underline flex gap-2">
+					<ArrowLeft className="group-hover:-translate-x-1 w-4 transition-transform" />
+					Go back to blog
+				</Link>
 			</article>
 		</>
 	);

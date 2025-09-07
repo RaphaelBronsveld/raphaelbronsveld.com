@@ -11,7 +11,7 @@ function extractCodeFromPre(node: React.ReactNode): string {
 }
 
 export const mdxComponents = {
-	pre: (props: any) => {
+	pre: (props: React.ComponentProps<"pre">) => {
 		const [copied, setCopied] = useState(false);
 		const rawCode = extractCodeFromPre(props.children);
 
@@ -36,7 +36,7 @@ export const mdxComponents = {
 				<button
 					type="button"
 					onClick={handleCopy}
-					className="absolute top-2 right-2 rounded px-3 py-2 text-xs bg-zinc-800 hover:bg-zinc-700 text-white md:opacity-0 group-hover:opacity-100 transition"
+					className="absolute top-2 right-2 rounded-md px-3 py-2 text-xs bg-zinc-800 hover:bg-zinc-700 text-white md:opacity-0 group-hover:opacity-100 transition"
 				>
 					{copied ? "Copied!" : "Copy"}
 				</button>

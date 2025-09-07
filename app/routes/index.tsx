@@ -1,3 +1,5 @@
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router";
 import { PostCarousel } from "~/components/PostCarousel";
 import { getLatestPosts } from "~/services/posts";
 
@@ -34,6 +36,10 @@ export default function Index() {
 					className="pb-2 pt-3"
 					heading="Latest blog posts."
 				/>
+				<Link to="/blog" className="mt-4 group no-underline flex gap-2">
+					View all posts
+					<ArrowRight className="group-hover:translate-x-1 w-4 transition-transform" />
+				</Link>
 			</div>
 		</div>
 	);
