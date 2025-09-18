@@ -1,0 +1,253 @@
+---
+title: How to use Middleware in React Router
+date: 18-09-2025
+description: React Router middleware is here! See how to set it up, run it on server and client, and improve your routes with less code.
+tag: React Router
+
+meta:
+  - description: React Router middleware is here! See how to set it up, run it on server and client, and improve your routes with less code.
+  - ogtitle:
+    property: og:title
+    content: How to use Middleware in React Router
+---
+
+It's here! Middleware in React Router has officially been marked as stable in the latest [7.9.0](https://reactrouter.com/changelog#v790) release.
+
+If you've ever found yourself copy pasting the same auth check across dozens of route handlers, this new release from React Router is about to make your life a lot easier.
+```ts
+// The old way
+export async function loader({ request }) {
+  // This had to be repeated everywhere
+  const session = await requireUserSession(request);
+  if (!session) {
+    throw redirect("/login");
+  }
+  // rest of logic
+}
+```
+
+The [discussions](https://github.com/remix-run/remix/discussions/7642) for this feature have been going on for a while, but it's finally here! We can now wave goodbye to duplicate code, scattered middleware logic and the need to reach for external middleware solutions.
+
+Let’s see how React Router’s middleware works.
+
+## What exactly is middleware?
+Before we dive into the specifics.. Think of middleware as a set of checkpoints. Every request moves through them before and after your Route handler does its main work.
+
+Say a user wants to save their profile. You’d want to make sure they’re authenticated first. Without middleware, you’d have to repeat that check in every loader or action that touches user data. With middleware, you write it once and let it handle the flow for you.
+
+<p className="text-sm text-muted-foreground italic" >Simplified request flow:</p>
+```text
+Request ---> [ middleware before ] ---> Route Handler ---> [ middleware after ] ---> Response
+```
+
+## Your first middleware
+One of the bigger wins with React Router's middleware is portability. Write your middleware once, and it’ll work no matter what web server you’re running on. Move from Express to Hono? Your middleware is happily coming with you. In some cases, you might even be able to remove that custom server.ts that currently provides the `context` for your application.
+
+Before we jump into examples, make sure your app has the [future flag](https://reactrouter.com/how-to/middleware#1-enable-the-middleware-flag) enabled. I’ll focus mostly on Framework mode here (though the same concepts apply to Data mode). If you’re on a custom server with getLoadContext, the docs have a few extra notes worth reading here.
+
+Alright, let’s get started with our first middleware.
+
+```ts
+// Define an async function
+async function exampleMiddleware() {
+  console.log('middleware runs')
+}
+
+// Register the middleware in a Route module
+export const middleware: Route.MiddlewareFunction[] = [
+    exampleMiddleware
+]
+```
+Voila! That was it, congratulations on creating a middleware in React Router. This very, _very_ basic example tries to prove how easy it is to get started.
+
+Here's a catch though..
+
+If you followed this example with a clean React Router template and used this middleware in your _root route_, you hopefully noticed the cute little `middleware runs` logs from the server. So far so good. But what if we created a new page, and we navigated to it with a client side navigation? Should we expect the `middleware runs` on the server again?
+
+Maybe we do but that's not what actually happens. If you navigate on the client to another page without an action or loader, your middleware won’t fire. To fix that, add a loader (even a simple one) to your route. With that in place, the middleware runs both on document requests and client-side navigations. Yay 🎉!
+
+## Making it useful
+Logging `middleware runs` won’t, unfortunately, impress your lead dev. Let’s turn it into something more real like setting CORS headers.
+
+Having it in our middleware allows us to define it once in our root route & never think about it again. There's already a cors package available made by the awesome [Sergio](https://github.com/sergiodxa/remix-utils) which we can use here.
+
+```ts
+import { cors } from "remix-utils/cors";
+
+// Define Middleware
+export async function corsMiddleware({ request }, next) {
+    const response = await next()
+    return await cors(request, response, {
+        credentials: true,
+    })
+}
+
+// Register the middleware in a Route module
+export const middleware: Route.MiddlewareFunction[] = [
+    corsMiddleware
+]
+```
+Notice the `await next()`. That’s what passes the request to the next middleware or, if you’re at the end of the chain, to the actual route handler. Always return the response if you're using `next()` so the chain completes. `next()` is called automagically if you don't use it.
+
+If everything was done correctly you should now be able to see the new headers in your responses! Some of the CORS headers are only set for _preflight_ requests so you can verify these headers exist by doing something like `curl -I -X OPTIONS http://localhost:5173`
+
+## Middleware Context
+Sometimes you need a shared value across the whole request lifecycle. A good example here would be an authenticated user.
+
+We fortunately no longer have to repeat our logic in our actions/loaders and can just register a middleware for the route(s) that need it.
+
+We'll use the example provided on the React Router website for this one since I feel like most apps will probably use something similar.
+
+```ts
+import { redirect, createContext } from 'react-router' // don't import the createContext from 'react'!!
+
+export const userContext = createContext<User | null>(null);
+
+export async function authMiddleware({ request, context }) {
+    const user = await getUser(request)
+
+    if (!user) {
+        throw redirect('/login')
+    }
+
+    context.set(userContext, user);
+}
+```
+
+A couple of things happen here, we create a "router context" that (possibly) contains the current authenticated user. This context is set and shared and can be used from our loaders & actions. Please note that the `createContext` import is from `react-router`.
+
+> I also experimented a bit with the import from `'react'` and it functionally worked fine, but typescript will definitely yell at you when consuming the context in your loaders or actions.
+
+Now your routes don’t have to redo the auth check. Instead, they can just read from context.
+
+```ts
+// app/routes/user/profile.tsx
+
+export const middleware: Route.MiddlewareFunction[] = [
+    authMiddleware
+]
+
+export async function loader({
+  context,
+}: Route.LoaderArgs) {
+  const user = context.get(userContext);
+  return { user };
+}
+
+export default function Profile({
+  loaderData
+}: Route.ComponentProps) {
+  const { user } = loaderData;
+
+  return <p>Hello, {user.name}</p>
+}
+```
+
+So simple & easy (and type-safe)! We love to see it.
+
+## Client middleware
+Middleware isn’t just server-only. You can also run it on the client. That means analytics hooks, localStorage checks, even client-only auth logic.
+
+To get some more insights into the middleware flow on the client I've done the following.
+
+I wanted to have 2 matched routes each logging their client middleware `before`, `res` and `after` it runs. For both matched routes I've also added a log in the `clientLoader`.
+
+```ts
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async function ({ request, context }, next)  {
+    console.log('parent - before first middleware')
+    const res = await next();
+    console.log("parent - res from first middleware", res)
+    console.log('parent - after first middleware')
+  },
+  async function ({ request, context }, next)  {
+    console.log('parent - before second middleware')
+    const res = await next();
+    console.log("parent - res from second middleware", res)
+    console.log('parent - after second middleware')
+  }
+];
+
+export async function clientLoader () {
+  console.log('parent - clientLoader')
+
+  return {
+    // and dataFromChildRoute: true
+    dataFromParentRoute: true
+  }
+}
+```
+
+Both the parent + child routes have the same logs added. I want you to pay close attention to the result of the `await next()` call. My console log in dev tools now looks like this.
+
+```text
+parent - before first middleware
+parent - before second middleware
+child - before first middleware
+child - before second middleware
+parent - clientLoader
+child - clientLoader
+child - res from second middleware {}
+child - after second middleware
+child - res from first middleware {}
+child - after first middleware
+parent - res from second middleware {}
+parent - after second middleware
+parent - res from first middleware {}
+parent - after first middleware
+```
+
+Okay, you probably already noticed, `res` isn't actually an empty object, I just truncated it here. The response from the `next()` call looks like this. It contains the returned data from all matched routes, cool! I  don't think you won't need this _that_ often, but it's still nice to have some insight into what is going on.
+
+```json
+{
+    "routes/parent": {
+        "type": "data",
+        "result": {
+            "dataFromParentRoute": true
+        }
+    },
+    "routes/parent/child": {
+        "type": "data",
+        "result": {
+            "dataFromChildRoute": true
+        }
+    }
+}
+```
+
+_Awesome._ Most of the server concepts with the client middleware apply here as well. You don't have to return anything from your client middleware as well since there's no `Response` to return. Hopefully this gives you some _context_ (🤔) into how the client side middleware flow works.
+
+## Migrating from old context
+If you’re already using a custom [getLoadContext](https://api.reactrouter.com/v7/types/_react_router_express.GetLoadContextFunction.html), you’ll need to tweak things a bit. The new context is type-safe with get and set, unlike the old “just trust me” `AppLoadContext`.
+
+Some helpful links here:
+- [React Router docs](https://reactrouter.com/how-to/middleware#changes-to-getloadcontextapploadcontext)
+- [Youtube video](https://www.youtube.com/watch?v=70Mga9EsnH4) containing migration guide from Alem.
+
+The new context is now a context map with a type-safe `get` and `set` method. Makes things way easier :).
+
+```ts
+export async function loader({
+  context,
+}: Route.LoaderArgs) {
+  // old way
+  const { user } = context
+
+  // new way
+  const { user } = context.get(userContext);
+}
+```
+
+## Some middleware tips
+
+Keep each middleware focused on one single thing. A CORS middleware and a `Server-Timing` middleware should stay separate.
+
+Every extra middleware adds latency, so add debug logs and make sure to have tests for them in isolation.
+Handle errors gracefully. In React Router, throwing an error sends control to the nearest (Route) ErrorBoundary. If next() throws unexpectedly, you could lose important middleware steps.
+
+Don’t forget: middleware can be conditional. For example: a quick if check on `request.url` can keep your `/api` routes running without the middleware affecting them.
+
+## Conclusion
+
+That’s middleware in React Router. Simple setup, powerful flexibility, and a lot less boilerplate. Good job team React Router!
