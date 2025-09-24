@@ -33,7 +33,7 @@ We had to be a little patient… but following the RSC [docs](https://reactroute
 
 While scanning through the example [template](https://github.com/remix-run/react-router-templates/commit/2fb1d62477a1c3ffa36969419c4aa0921a0d6aa9), I noticed the following changes. Most of these APIs and implementation details will probably change again, but I reckon it's still valuable to see what's there right now.
 
-- React Router itself is no longer used as a Vite plugin. Instead, `@vitejs/plugin-rsc/plugin` is used with 3 entry files.
+- React Router data mode obviously needs an extra Vite plugin to support RSC, `@vitejs/plugin-rsc/plugin`, this requires a total of 3 entry files.
 - Instead of `entry.server.tsx` and `entry.client.tsx`, we now have:
   - `entry.browser.tsx` Hydrate the generated HTML + support post-hydration server actions.
   - `entry.rsc.tsx` Will generate the RSC payloads
