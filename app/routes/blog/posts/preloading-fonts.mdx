@@ -21,7 +21,7 @@ If you search the internet for this specific problem, most advice will instruct 
 <link rel="preload" href="yourfont.woff2" as="font" crossorigin />
 ```
 
-Adding the crossorigin attribute tells the browser to use CORS mode when fetching the font — which is required if the font needs to be reused across contexts (like preload / actual font load through css). Without it, the browser treats the preload request as a separate fetch.
+Adding the crossorigin attribute tells the browser to use CORS mode when fetching the font, which is required if the font needs to be reused across contexts (like preload / actual font load through css). Without it, the browser treats the preload request as a separate fetch.
 
 ## But I did that and it still loaded twice 😔?
 Make sure your font file actually allows it to be used as a cached asset by checking the following: your response headers!
