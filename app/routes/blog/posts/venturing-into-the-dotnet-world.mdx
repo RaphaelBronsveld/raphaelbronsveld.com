@@ -1,0 +1,142 @@
+---
+title: Venturing into the .NET World
+date: 21-12-2025
+description: My first experience in years with another framework. Let's go through my first impressions.
+tag: .NET
+
+meta:
+  - description: My first experience in years with another framework. Let's go through my first impressions.
+  - ogtitle:
+    property: og:title
+    content: Venturing into the .NET World
+---
+
+It’s been a while since I worked with a framework that is opinionated about how you structure and build a product. My first real experience with an opinionated framework was Laravel 4 back in 2014. Like I said.. it's been a while.
+
+Not even two weeks ago, I got the opportunity to dive into the **.NET (web api)** world and familiarize myself with a lot of new concepts. Truth be told, my brain is still processing a fair amount of information. So far though, it's been a joy to work with. Today I want to share some early observations and things that stood out to me.
+
+## First impressions
+Getting into a new language, a new framework, new architectural patterns and an already existing codebase (all at the same time) takes time. Learning all of that at once isn't really realistic, so I broke things down by creating a Todo API in **.NET** to explore the new concepts in isolation.
+
+Some early impressions:
+- The documentation from Microsoft is great. 
+- Built-in dependency injection is something I didn't realize how much I missed.
+- Getting started is surprisingly easy.
+- C#, expressive, structured and pleasant to work with.
+
+As I started building real features, I kept running into patterns and concepts that made me stop and think, “Wait… that’s actually really nice.” Here are a few highlights.
+
+## [Annotations]
+Coming from a frontend background, decorators in TypeScript or libraries like class-validator feel familiar. In **.NET**, however, attributes (often called data annotations) are deeply integrated into the framework and used extensively. Importantly, they’re opt-in and composable: you apply only what you need.
+
+Take this model as an example:
+
+```csharp
+public class CreateTodoRequest
+{
+  [Required]
+  public string Title { get; set; }
+  [MaxLength(500)]
+  public string? Description { get; set; }
+}
+```
+
+By adding these attributes, we define validation rules declaratively. No manual validation checks and no custom middleware. This is all handled as part of the request pipeline. If validation fails, the request never reaches your controller logic.
+
+Routing follows the same declarative style:
+
+```csharp
+[ApiController]
+[Route("api/todos")]
+public class TodosController : ControllerBase
+{
+  [HttpGet("{guid}")]
+  public async Task<ActionResult<GetTodoByIdQueryResult>> GetById(Guid guid)
+  {
+    // get todo
+  }
+}
+```
+
+The `[HttpGet("{guid}")]` attribute defines both the HTTP method and the route parameter. It's declarative, readable, and feels super clean to me personally.
+
+It surprised me how discoverable this all is, at a quick glance you can see what validations apply, what HTTP methods are allowed, how the routing works, all in one file.
+
+## Model binding magic
+Model binding is the process of taking incoming request data route parameters, query strings, headers, or request bodies and mapping them to strongly typed method arguments. It happens behind the scenes, but in a predictable way.
+
+Let’s zoom in on this method signature:
+
+```csharp
+[HttpGet("{guid}")]
+public async Task<ActionResult<GetTodoByIdQueryResult>> GetById(Guid guid)
+```
+
+That Guid parameter is doing more than it appears. The framework automatically binds the incoming route value to the method argument and validates that the value is a valid GUID. If it isn’t, the request fails before your logic ever runs.
+
+The `[ApiController]` attribute plays an important role here as well. Among other things, it enables automatic 400 responses when model validation fails, removing a lot of boilerplate error handling from your controllers.
+
+## CQRS
+
+Command Query Responsibility Segregation (CQRS) was a pattern I hadn’t worked with much before my **.NET** adventures. The core idea is simple: separate operations that change data from those that read data.
+
+### Commands
+Actions that *change* data. For example, there could be a  `CreateTodoCommand` class, or a `UpdateTodoCommand`. Their purpose is explicit: something is going to change.
+
+### Queries
+These only *read* data. Something like `GetTodoById`, or `GetAllTodos`. These never modify state, they return information.
+
+### Why separate them?
+Different needs: reading data often have very different requirements and optimization needs. There's also a clearer intent, when you see `CreateTodoCommand`, you'll know it changes something. It's also easier to maintain since each operation is isolated in it's own handler.
+
+In practice, this can look like the following:
+
+```csharp
+  // Controller just sends a command
+  public async Task<IActionResult> CreateTodo(CreateTodoCommand command)
+  {
+      await _mediator.Send(command);
+      return Ok();
+  }
+
+  // Somewhere else: a handler that ONLY handles creating todos
+  public class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand>
+  {
+      // All the create logic here
+  }
+```
+
+This approach keeps controllers thin and pushes business logic into their respective handlers. It does introduce extra structure, so it’s not always the right choice, but for more complex systems it can pay off quickly.
+
+## A taste of Domain-Driven Design
+
+Domain-Driven Design (DDD) is about modeling language and boundaries in addition to structure, making complex business logic more understandable and consistent. It's also not specifically a **.NET** thing; it’s a deep topic that deserves far more space than a single section. For complex business logic, it keeps things organized.
+
+Some key concepts:
+
+### Entities
+Objects with a persistent identity. Even if their properties change, their identity remains the same.
+
+Example: A `Todo` with an ID. Even if we change the title, it's still the same Todo.
+
+### Value Objects
+Objects entirely defined by their values with no unique identity. Value Objects are typically `immutable`.
+
+Example: An `Email` or `Priority`. Two email value objects with the same address are considered equal.
+
+### Aggregates
+A cluser of entities & value objects treated as one unit. One entity acts as the aggregate root and controls access to the rest. 
+
+Example: a `Customer` aggregate that owns a collection of address objects. External code interacts with addresses through the customer, not directly.
+
+### Why bother?
+
+It helps developers understand complex business logic. It makes systems easier to change & grow. But this barely scratches the surface. It's a pretty deep rabbit hole worth exploring if you're dealing with complicated business logic.
+
+## Conclusion
+
+Stepping into a different ecosystem after years has been refreshing. **.NET** encourages structure and explicitness in ways that I secretly might have been missing.
+
+Exploring new frameworks, languages or architectural patterns is rarely a wasted effort. We're all here to become better developers after all.
+
+For now, hope you enjoyed this one. See you in 2026. Happy holidays 🎄🎇!
