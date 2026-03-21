@@ -94,11 +94,12 @@ If you rename or remove a route, Typescript will flag every broken `href` call. 
 
 ---
 
+
 One thing worth noting: all of the above is specific to framework mode. If you're using React Router in library mode, type generation won't be done.
 
 I'd suggest going through the documentation on how to migrate to framework mode with React Router's vite plugin.
 
-- https://reactrouter.com/upgrading/component-routes
-- https://reactrouter.com/upgrading/router-provider
+- [https://reactrouter.com/upgrading/component-routes](https://reactrouter.com/upgrading/component-routes)
+- [https://reactrouter.com/upgrading/router-provider](https://reactrouter.com/upgrading/router-provider)
 
 These might seem like small additions, but they add up: no more manual type-hinting, fewer runtime surprises, and links that actually break at compile time. Hope it was useful!
