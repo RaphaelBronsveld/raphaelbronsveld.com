@@ -21,7 +21,7 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 		};
 
 		return { slug, og, frontmatter };
-	} catch (_error) {
+	} catch {
 		throw new Response("Not found", { status: 404 });
 	}
 };

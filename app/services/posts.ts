@@ -20,18 +20,13 @@ type BlogPostFilter = {
 
 type SortOrder = "asc" | "desc";
 
-const modules = import.meta.glob<{ frontmatter: BlogPost }>(
-	"../routes/blog/posts/*.mdx",
-	{
-		eager: true,
-	},
-);
+const modules = import.meta.glob<{ frontmatter: BlogPost }>("../routes/blog/posts/*.mdx", {
+	eager: true,
+});
 
 const postLookup = new Map(
 	Object.entries(modules).map(([path, module]) => {
-		const slug = path
-			.replace("../routes/blog/posts/", "")
-			.replace(/\.mdx$/, "");
+		const slug = path.replace("../routes/blog/posts/", "").replace(/\.mdx$/, "");
 		return [slug, module];
 	}),
 );
@@ -65,10 +60,8 @@ const matchesFilter = (post: BlogPost, filter: BlogPostFilter): boolean => {
 	if (filter.excludeSlug && post.slug === filter.excludeSlug) return false;
 
 	const postTimestamp = dateToTimestamp(post.date);
-	if (filter.beforeDate && postTimestamp >= dateToTimestamp(filter.beforeDate))
-		return false;
-	if (filter.afterDate && postTimestamp <= dateToTimestamp(filter.afterDate))
-		return false;
+	if (filter.beforeDate && postTimestamp >= dateToTimestamp(filter.beforeDate)) return false;
+	if (filter.afterDate && postTimestamp <= dateToTimestamp(filter.afterDate)) return false;
 
 	return true;
 };
@@ -93,10 +86,7 @@ export const getPosts = (
 	return limit ? sortedPosts.slice(0, limit) : sortedPosts;
 };
 
-export const getRelatedPosts = (
-	currentPost: BlogPost,
-	limit = 5,
-): BlogPost[] => {
+export const getRelatedPosts = (currentPost: BlogPost, limit = 5): BlogPost[] => {
 	return getPosts({
 		filter: { tag: currentPost.tag, excludeSlug: currentPost.slug },
 		limit,

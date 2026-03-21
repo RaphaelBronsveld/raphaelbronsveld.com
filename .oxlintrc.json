@@ -1,0 +1,8 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"options": {
+		"typeAware": true
+	},
+	"plugins": ["react", "react-perf", "node", "promise", "jsx-a11y", "typescript", "import"],
+	"ignorePatterns": []
+}

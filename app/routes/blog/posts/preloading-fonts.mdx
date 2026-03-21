@@ -5,10 +5,10 @@ description: You wanted to implement font preloading to improve performance and 
 tag: Performance
 
 meta:
-  - description: Ever dealt with preloading fonts and noticed they loaded twice? Here's why.
-  - ogtitle:
-    property: og:title
-    content: Preloaded fonts loading twice..?
+    - description: Ever dealt with preloading fonts and noticed they loaded twice? Here's why.
+    - ogtitle:
+      property: og:title
+      content: Preloaded fonts loading twice..?
 ---
 
 You finally decided to tackle your project font loading strategy and you stumbled upon the fact that your font(s) are being loaded twice. How's that possible?
@@ -24,6 +24,7 @@ If you search the internet for this specific problem, most advice will instruct 
 Adding the crossorigin attribute tells the browser to use CORS mode when fetching the font, which is required if the font needs to be reused across contexts (like preload / actual font load through css). Without it, the browser treats the preload request as a separate fetch.
 
 ## But I did that and it still loaded twice 😔?
+
 Make sure your font file actually allows it to be used as a cached asset by checking the following: your response headers!
 
 Fonts need to be cacheable and "CORS-friendly" to allow reuse. Your `Cache-Control` header should be set-up correctly. An example `Cache-Control` header would contain something like `public, max-age=31536000, immutable`. This just instructs your browser to keep the font asset in browser cache for 1 year.

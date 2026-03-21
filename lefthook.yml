@@ -1,0 +1,25 @@
+pre-commit:
+    parallel: true
+    commands:
+        lint:
+            glob: "**/*.{js,jsx,ts,tsx}"
+            run: pnpm run lint:fix
+            stage_fixed: true
+        format:
+            glob: "**/*.{js,jsx,ts,tsx}"
+            run: pnpm run fmt
+            stage_fixed: true
+        typecheck:
+            run: pnpm run typecheck
+
+pre-push:
+    parallel: true
+    commands:
+        lint:
+            glob: "**/*.{js,jsx,ts,tsx}"
+            run: pnpm run lint
+        format:
+            glob: "**/*.{js,jsx,ts,tsx}"
+            run: pnpm run fmt:check
+        typecheck:
+            run: pnpm run typecheck

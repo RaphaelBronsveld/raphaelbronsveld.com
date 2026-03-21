@@ -5,10 +5,10 @@ description: React Server Components are now in React Router (still experimental
 tag: React Router
 
 meta:
-  - description: React Server Components are now in React Router (still experimental). See how they work and what they mean for server rendering and faster pages.
-  - ogtitle:
-    property: og:title
-    content: RSCs in React Router - First Impressions
+    - description: React Server Components are now in React Router (still experimental). See how they work and what they mean for server rendering and faster pages.
+    - ogtitle:
+      property: og:title
+      content: RSCs in React Router - First Impressions
 ---
 
 A couple of weeks ago, the Remix team shared more [insights](https://remix.run/blog/react-router-and-react-server-components) into how React Server Components (RSCs) will work with React Router. And after a bit of patience, we finally get to [experiment](https://reactrouter.com/changelog#v770) with RSCs in React Router (yes 🎉!).
@@ -35,9 +35,9 @@ While scanning through the example [template](https://github.com/remix-run/react
 
 - React Router data mode obviously needs an extra Vite plugin to support RSC, `@vitejs/plugin-rsc/plugin`, this requires a total of 3 entry files.
 - Instead of `entry.server.tsx` and `entry.client.tsx`, we now have:
-  - `entry.browser.tsx` Hydrate the generated HTML + support post-hydration server actions.
-  - `entry.rsc.tsx` Will generate the RSC payloads
-  - `entry.ssr.tsx` Responsible for handling the incoming request and generating HTML with fetched RSC payloads.
+    - `entry.browser.tsx` Hydrate the generated HTML + support post-hydration server actions.
+    - `entry.rsc.tsx` Will generate the RSC payloads
+    - `entry.ssr.tsx` Responsible for handling the incoming request and generating HTML with fetched RSC payloads.
 - A different (?) routes configuration with `RSCRouteConfig`. Truth be told: I haven't actually tried playing around with the `@react-router/dev/routes` helper functions here.
 
 ## Migrating my blog to RSC
@@ -58,18 +58,18 @@ If you've been working with React Router / Remix for the past few years already,
 
 ```tsx
 export async function loader({ params }: Route.LoaderArgs) {
-  const post = await db.getPost(params.id);
-  return post;
+	const post = await db.getPost(params.id);
+	return post;
 }
 
 export default function Post({ loaderData }: Route.ComponentProps) {
-  const { title, description } = loaderData;
-  return (
-    <article>
-      <h1>{title}</h1>
-      <p>{description}</p>
-    </article>
-  )
+	const { title, description } = loaderData;
+	return (
+		<article>
+			<h1>{title}</h1>
+			<p>{description}</p>
+		</article>
+	);
 }
 ```
 
@@ -77,13 +77,13 @@ This approach will work for years to come but you might also consider a RSC appr
 
 ```tsx
 export default async function Post() {
-  const post = await db.getPost(params.id);
-  return (
-    <article>
-      <h1>{post.title}</h1>
-      <p>{post.description}</p>
-    </article>
-  )
+	const post = await db.getPost(params.id);
+	return (
+		<article>
+			<h1>{post.title}</h1>
+			<p>{post.description}</p>
+		</article>
+	);
 }
 ```
 
@@ -94,21 +94,21 @@ Since RSCs can be async, we can also stream (slower) RSCs to the client!
 ```tsx
 // movies/page.tsx
 export default async function MoviePage() {
-  const lotr = movieApi.fetchTheLordOfTheRingsExtendedTrilogy();
-  return (
-    <>
-      <Suspense fallback={<ABeautifulLoader />}>
-        <MovieClientPage movie={lotr} />
-      </Suspense>
-    </>
-  )
+	const lotr = movieApi.fetchTheLordOfTheRingsExtendedTrilogy();
+	return (
+		<>
+			<Suspense fallback={<ABeautifulLoader />}>
+				<MovieClientPage movie={lotr} />
+			</Suspense>
+		</>
+	);
 }
 
 // movies/page.client.tsx
-"use client"
+("use client");
 export function MovieClientPage({ movie }) {
-  const movieData = use(movie);
-  return <MovieDetail data={movieData} />;
+	const movieData = use(movie);
+	return <MovieDetail data={movieData} />;
 }
 ```
 
@@ -117,9 +117,11 @@ If you're curious about how the example above works. Go to the React [docs](http
 ## Performance
 
 Just for fun I decided to run
+
 ```shell
 autocannon -c 50 -d 30 http://localhost:5173
 ```
+
 on the homepage with a RSC route and the OG Route module that's just returning the homepage (basically static html). Nothing too fancy, and probably an absolutely worthless test but the funny thing was that the RSC route would always be able to process more requests.
 
 Should we draw conclusions from this? Yes move everything over now!! (just kidding)

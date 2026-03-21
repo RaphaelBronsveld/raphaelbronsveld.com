@@ -5,6 +5,6 @@
 	"main": "./workers/app.ts",
 	"compatibility_flags": ["nodejs_compat"],
 	"vars": {
-		"GA_TRACKING_ID": "G-H23QTF65K8"
-	}
+		"GA_TRACKING_ID": "G-H23QTF65K8",
+	},
 }

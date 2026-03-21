@@ -5,10 +5,10 @@ description: My first experience in years with another framework. Let's go throu
 tag: .NET
 
 meta:
-  - description: My first experience in years with another framework. Let's go through my first impressions.
-  - ogtitle:
-    property: og:title
-    content: Venturing into the .NET World
+    - description: My first experience in years with another framework. Let's go through my first impressions.
+    - ogtitle:
+      property: og:title
+      content: Venturing into the .NET World
 ---
 
 It’s been a while since I worked with a framework that is opinionated about how you structure and build a product. My first real experience with an opinionated framework was Laravel 4 back in 2014. Like I said.. it's been a while.
@@ -16,10 +16,12 @@ It’s been a while since I worked with a framework that is opinionated about ho
 Not even two weeks ago, I got the opportunity to dive into the **.NET (web api)** world and familiarize myself with a lot of new concepts. Truth be told, my brain is still processing a fair amount of information. So far though, it's been a joy to work with. Today I want to share some early observations and things that stood out to me.
 
 ## First impressions
+
 Getting into a new language, a new framework, new architectural patterns and an already existing codebase (all at the same time) takes time. Learning all of that at once isn't really realistic, so I broke things down by creating a Todo API in **.NET** to explore the new concepts in isolation.
 
 Some early impressions:
-- The documentation from Microsoft is great. 
+
+- The documentation from Microsoft is great.
 - Built-in dependency injection is something I didn't realize how much I missed.
 - Getting started is surprisingly easy.
 - C#, expressive, structured and pleasant to work with.
@@ -27,6 +29,7 @@ Some early impressions:
 As I started building real features, I kept running into patterns and concepts that made me stop and think, “Wait… that’s actually really nice.” Here are a few highlights.
 
 ## [Annotations]
+
 Coming from a frontend background, decorators in TypeScript or libraries like class-validator feel familiar. In **.NET**, however, attributes (often called data annotations) are deeply integrated into the framework and used extensively. Importantly, they’re opt-in and composable: you apply only what you need.
 
 Take this model as an example:
@@ -63,6 +66,7 @@ The `[HttpGet("{guid}")]` attribute defines both the HTTP method and the route p
 It surprised me how discoverable this all is, at a quick glance you can see what validations apply, what HTTP methods are allowed, how the routing works, all in one file.
 
 ## Model binding magic
+
 Model binding is the process of taking incoming request data route parameters, query strings, headers, or request bodies and mapping them to strongly typed method arguments. It happens behind the scenes, but in a predictable way.
 
 Let’s zoom in on this method signature:
@@ -81,12 +85,15 @@ The `[ApiController]` attribute plays an important role here as well. Among othe
 Command Query Responsibility Segregation (CQRS) was a pattern I hadn’t worked with much before my **.NET** adventures. The core idea is simple: separate operations that change data from those that read data.
 
 ### Commands
-Actions that *change* data. For example, there could be a  `CreateTodoCommand` class, or a `UpdateTodoCommand`. Their purpose is explicit: something is going to change.
+
+Actions that _change_ data. For example, there could be a `CreateTodoCommand` class, or a `UpdateTodoCommand`. Their purpose is explicit: something is going to change.
 
 ### Queries
-These only *read* data. Something like `GetTodoById`, or `GetAllTodos`. These never modify state, they return information.
+
+These only _read_ data. Something like `GetTodoById`, or `GetAllTodos`. These never modify state, they return information.
 
 ### Why separate them?
+
 Different needs: reading data often have very different requirements and optimization needs. There's also a clearer intent, when you see `CreateTodoCommand`, you'll know it changes something. It's also easier to maintain since each operation is isolated in it's own handler.
 
 In practice, this can look like the following:
@@ -115,17 +122,20 @@ Domain-Driven Design (DDD) is about modeling language and boundaries in addition
 Some key concepts:
 
 ### Entities
+
 Objects with a persistent identity. Even if their properties change, their identity remains the same.
 
 Example: A `Todo` with an ID. Even if we change the title, it's still the same Todo.
 
 ### Value Objects
+
 Objects entirely defined by their values with no unique identity. Value Objects are typically `immutable`.
 
 Example: An `Email` or `Priority`. Two email value objects with the same address are considered equal.
 
 ### Aggregates
-A cluser of entities & value objects treated as one unit. One entity acts as the aggregate root and controls access to the rest. 
+
+A cluser of entities & value objects treated as one unit. One entity acts as the aggregate root and controls access to the rest.
 
 Example: a `Customer` aggregate that owns a collection of address objects. External code interacts with addresses through the customer, not directly.
 

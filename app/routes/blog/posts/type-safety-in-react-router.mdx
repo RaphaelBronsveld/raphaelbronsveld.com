@@ -5,10 +5,10 @@ description: React Router and type-safety?! Yes that's possible. Today we'll tal
 tag: React Router
 
 meta:
-  - description: React Router and type-safety?! Yes that's possible. Today we'll talk about how we can utilise React Router's generated types.
-  - ogtitle:
-    property: og:title
-    content: Type Safety in React Router
+    - description: React Router and type-safety?! Yes that's possible. Today we'll talk about how we can utilise React Router's generated types.
+    - ogtitle:
+      property: og:title
+      content: Type Safety in React Router
 ---
 
 Scrolling through discussions online and reading about "Which React Framework should I use?" I always feel like React Router doesn't get enough credit. React Router is obviously mentioned but often overshadowed by the new shiny thing, TanStack Start. One of the main talking points in these discussions is type-safety. If you need a fully type-safe experience from the ground up, TanStack won't do you wrong.
@@ -26,10 +26,10 @@ Now you're able to use the generated types in, for example, your root route modu
 import type { Route } from "./+types/root";
 
 // type-safe params from route definition
-export const loader = ({ params }: Route.LoaderArgs) => {}
+export const loader = ({ params }: Route.LoaderArgs) => {};
 
 // type-safe "data" from loader
-export const meta: MetaFunction = ({ data }: Route.MetaArgs) => {}
+export const meta: MetaFunction = ({ data }: Route.MetaArgs) => {};
 ```
 
 Previously, you'd have to hint the type manually. `useLoaderData()` returns `unknown`, so you would use a `typeof` cast:
@@ -68,7 +68,7 @@ const { loaderData, actionData } = products;
 // returns undefined if you're not on the checkout page.
 const checkout = useRoute("routes/checkout");
 if (!checkout) {
-  throw new Error(`Checkout accessed with useRoute on non-checkout page"`);
+	throw new Error(`Checkout accessed with useRoute on non-checkout page"`);
 }
 ```
 
@@ -93,7 +93,6 @@ const link = href("/product/:slug", { slug: "awesome-product" })
 If you rename or remove a route, Typescript will flag every broken `href` call. Neat!
 
 ---
-
 
 One thing worth noting: all of the above is specific to framework mode. If you're using React Router in library mode, type generation won't be done.
 

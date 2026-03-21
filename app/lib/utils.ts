@@ -5,11 +5,7 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-export function sortBy<T>(
-	arr: T[],
-	key: (item: T) => number,
-	dir: "asc" | "desc" = "asc",
-) {
+export function sortBy<T>(arr: T[], key: (item: T) => number, dir: "asc" | "desc" = "asc") {
 	return arr.sort((a, b) => {
 		const res = compare(key(a), key(b));
 		return dir === "asc" ? res : -res;

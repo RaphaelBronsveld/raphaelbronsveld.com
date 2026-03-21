@@ -29,8 +29,8 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 			<h1 className="text-2xl mb-6 text-accent">Blog.</h1>
 
 			<p className="mb-4">
-				A collection of blog posts covering topics such as sysops/devops,
-				performance, frontend frameworks and more.
+				A collection of blog posts covering topics such as sysops/devops, performance,
+				frontend frameworks and more.
 			</p>
 			<ul className="space-y-2 m-0">
 				{posts.map((post) => (
